@@ -59,6 +59,51 @@ en-GB:
   in_progress_applications:
     title: In progress
     caption: In progress applications
+  summary:
+    date_received: Date received
+    refund_request: Refund request
+    date_fee_paid: Date fee paid
+    processed_by: Processed by
+    processed_on: Date processed
+    form_name: Form number
+    case_number: Case number
+    fee: Fee
+    part_payment: Part-payment
+    emergency: Reason for emergency
+    other: Other
+    paper_application: Paper application
+    evidence: Evidence
+    full_name: Full name
+    date_of_birth: Date of birth
+    applicant_over_16: Applicant over 16
+    ni_number: National Insurance number
+    status: Status
+    partner_full_name: Partner's full name
+    partner_date_of_birth: Partner's date of birth
+    partner_ni_number: Partner's National Insurance number
+    deceased_name: Name of the deceased
+    date_of_death: Date of their death
+    less_then: 'Less than £4,250'
+    between: 'Between £4,250 and £15,999'
+    more_then: 'More than £16,000'
+    on_benefits?: Benefits declared in application
+    override?: Correct evidence provided
+    dependents: Applicant has children living with them or that they are financially supporting
+    children_age_band: Number of children
+    income_period: Income period
+    income_period_last_month: Last calendar month
+    income_period_average: Average income for last three calendar months
+    income_kind_applicant: Applicant's income type
+    income_kind_partner: Partner’s income type
+    statement_signed_by: 'Declaration and statement of truth signed by'
+    applicant: Applicant
+    litigation_friend: Litigation friend
+    legal_representative: Legal representative
+    representative:
+      full_name: 'Full name'
+      organisation: Organisation
+      position: Position held at firm
+
   processed_applications:
     table_header:
       reference: Reference

@@ -89,6 +89,10 @@ module Forms
         Time.zone.tomorrow
       end
 
+      # TODO: clear emergency reason if not selected
+      # TODO clear probate info if not selected
+      # TODO clear partner info if status is single
+
       def reason
         if emergency_without_reason?
           errors.add(

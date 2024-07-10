@@ -3,7 +3,7 @@ module Views
     class Details
       include ActionView::Helpers::NumberHelper
 
-      delegate(:form_name, :case_number, :deceased_name, :emergency_reason, :calculation_scheme, to: :detail)
+      delegate(:form_name, :case_number, :deceased_name, :emergency_reason, :calculation_scheme, :probate, to: :detail)
 
       def initialize(application)
         @application = application

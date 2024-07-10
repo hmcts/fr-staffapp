@@ -136,4 +136,15 @@ RSpec.describe Views::Overview::Details do
       end
     end
   end
+
+  describe '#probate' do
+    subject { view.probate }
+
+    let(:application) { build_stubbed(:application, probate: true) }
+
+    it 'probate' do
+      is_expected.to be true
+    end
+  end
+
 end
