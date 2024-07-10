@@ -425,7 +425,7 @@ RSpec.describe Forms::Application::Detail do
     let(:detail) { create(:detail) }
 
     context 'when attributes are correct' do
-      let(:attributes) { attributes_for(:complete_detail, :probate, :refund, :emergency) }
+      let(:attributes) { attributes_for(:complete_detail, :probate, :refund, :emergency, :probate) }
       let(:params) { attributes.merge(jurisdiction_id: jurisdiction.id) }
 
       it { is_expected.to be true }
@@ -461,5 +461,27 @@ RSpec.describe Forms::Application::Detail do
       it { expect(detail.fee.to_f).to be(11.34) }
       it { expect(form.fee.to_f).to be(11.34) }
     end
+
+    context 'clear unselected data' do
+      let(:attributes) { attributes_for(:complete_detail, :probate, :refund, :emergency, :probate) }
+      let(:params) { attributes.merge(jurisdiction_id: jurisdiction.id, emergency: false, probate: false) }
+
+      it { is_expected.to be true }
+
+      before do
+        update_form
+        detail.reload
+      end
+
+      it 'resets emergency reason' do
+        expect(detail.emergency_reason).to be nil
+      end
+
+      it 'resets probate data' do
+        expect(detail.deceased_name).to be nil
+        expect(detail.date_of_death).to be nil
+      end
+    end
+
   end
 end

@@ -89,9 +89,8 @@ module Forms
         Time.zone.tomorrow
       end
 
-      # TODO: clear emergency reason if not selected
-      # TODO clear probate info if not selected
-      # TODO clear partner info if status is single
+
+      # TODO: clear partner info if status is single
 
       def reason
         if emergency_without_reason?
@@ -122,10 +121,11 @@ module Forms
       end
 
       def format_reason
-        self.emergency_reason = nil if emergency_reason.blank?
+        self.emergency_reason = nil if emergency_reason.blank? || emergency == false
       end
 
       def persist!
+        clear_unused_data
         @object.update(fields_to_update)
       end
 
@@ -139,6 +139,16 @@ module Forms
             fields[name] = send(name)
           end
         end
+      end
+
+      def clear_unused_data
+        format_probate
+      end
+
+      def format_probate
+        return if probate
+        self.date_of_death = nil
+        self.deceased_name = nil
       end
     end
   end
