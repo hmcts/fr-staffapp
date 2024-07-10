@@ -474,12 +474,12 @@ RSpec.describe Forms::Application::Detail do
       end
 
       it 'resets emergency reason' do
-        expect(detail.emergency_reason).to be nil
+        expect(detail.emergency_reason).to be_nil
       end
 
       it 'resets probate data' do
-        expect(detail.deceased_name).to be nil
-        expect(detail.date_of_death).to be nil
+        expect(detail.deceased_name).to be_nil
+        expect(detail.date_of_death).to be_nil
       end
     end
 
