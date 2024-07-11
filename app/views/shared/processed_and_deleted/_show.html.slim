@@ -1,29 +1,10 @@
 - content_for :page_title
   = t("#{state}_applications.detail.title")
 
-h1.govuk-heading-xl
-  =@application.reference
-  |&nbsp;-&nbsp;
-  =t("#{state}_applications.detail.title")
 
--if hide_fee_status?
-  =build_section_with_defaults 'Personal details', @applicant
--else
-   =build_section_with_defaults 'Date received and fee status', @fee_status
-   =build_section_with_defaults 'Personal details', @applicant
-
-=build_section_with_defaults 'Application details', @details
-=build_section 'Benefits', @application_view, ['benefits', 'paper_evidence']
-=build_section 'Income', @application_view, ['number_of_children', 'total_monthly_income', 'total_monthly_income_from_evidence', 'income_kind_applicant', 'income_kind_partner', 'income_period']
-
--if show_ucd_changes?(@application_view.calculation_scheme_value)
-  =build_section_with_defaults 'Declaration and statement of truth', @declaration
-  - if @representative.display_section?
-    =build_section_with_defaults 'Representative details', @representative
+- if show_ucd_changes?(@application_view.calculation_scheme_value)
+  = render("shared/processed_and_deleted/post_ucd", state: state)
+- else
+  = render("shared/processed_and_deleted/pre_ucd", state: state)
 
 
-=build_section 'Result', @application_view, result_section_list
-
-=render(partial: 'shared/remission_type', locals: { source: @result })
-
-=render(partial: 'shared/processed_summary', locals: { source: @processing_details })

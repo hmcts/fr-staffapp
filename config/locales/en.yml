@@ -105,6 +105,11 @@ en-GB:
       position: Position held at firm
 
   processed_applications:
+    result:
+      savings: Savings
+      income: Income
+      scheme: HwF Scheme
+
     table_header:
       reference: Reference
       applicant: Applicant
