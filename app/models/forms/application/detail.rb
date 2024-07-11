@@ -141,12 +141,6 @@ module Forms
       def clear_unused_data
         format_probate
       end
-
-      def format_probate
-        return if probate
-        self.date_of_death = nil
-        self.deceased_name = nil
-      end
     end
   end
 end
