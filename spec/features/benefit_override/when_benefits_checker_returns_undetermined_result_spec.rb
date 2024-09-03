@@ -15,11 +15,12 @@ end
 def application_details
   date_received = Time.zone.today
   fill_in 'application_fee', with: 410, wait: true
-  find(:xpath, '(//input[starts-with(@id,"application_jurisdiction_id_")])[1]').click
+  find(:xpath, '(//input[starts-with(@id,"jurisdiction_")])[1]').click
   fill_in 'application_day_date_received', with: date_received.day
   fill_in 'application_month_date_received', with: date_received.month
   fill_in 'application_year_date_received', with: date_received.year
-  fill_in 'Form number', with: 'ABC123'
+  select_other_application
+  fill_in 'application_form_name', with: 'ABC123'
   click_button 'Next'
 end
 
@@ -38,6 +39,10 @@ def drive_to_the_benefits_page
   application_details
   savings_and_investments
   benefits_page
+end
+
+def select_other_application
+  choose('other_radio')
 end
 
 RSpec.feature 'When benefits checker result is "Undetermined"' do

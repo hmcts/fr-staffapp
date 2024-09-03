@@ -439,7 +439,7 @@ en-GB:
         fee: Fee
         jurisdiction: Jurisdiction
         date_received: Date received
-        form_name: Form number
+        form_name: Name of Form
         case_number: Case number
         probate: This is a probate case
         deceased_name: Name of the deceased
@@ -547,7 +547,7 @@ en-GB:
         date_of_birth_hint: For example, 31 3 1980
         married_false: Single
         married_true: Married or living with someone
-        form_name_summary: Form number
+        form_name_summary: Name of form
         over_16_true: 'Yes'
         over_16_false: 'No'
       forms/application/partner:
@@ -572,7 +572,13 @@ en-GB:
         day_date_received: Day
         month_date_received: Month
         year_date_received: Year
-        form_name: Form number
+        form_type: 'Is this application for a:'
+        form_type_n1: N1 Part 7 Claim
+        form_type_other: Other
+        claim_type_specified: Specified
+        claim_type_unspecified: Unspecified
+        claim_type_personal_injury: Personal Injury
+        form_name: Name of Form
         form_name_hint: You'll find this on the bottom of the form, for example C100 or ADM1A
         case_number: Case number
         probate: This is a probate case
@@ -732,7 +738,13 @@ en-GB:
         reason: 'Other reason'
       forms/online_application:
         fee: How much is the court or tribunal fee?
-        form_name: Form number
+        form_type: 'Is this application for a:'
+        form_type_n1: N1 Part 7 Claim
+        form_type_other: Other
+        claim_type_specified: Specified
+        claim_type_unspecified: Unspecified
+        claim_type_personal_injury: Personal Injury
+        form_name: Name of form
         form_name_hint: You'll find this on the bottom of the form, for example C100 or ADM1A
         date_submitted: Date submitted by applicant
         day_date_received: Day
@@ -858,8 +870,12 @@ en-GB:
             discretion_reason:
               blank: Enter Discretionary reason
             form_name:
-              invalid: You entered the help with fees form number. Enter the number on the court or tribunal form.
-              blank: Enter a valid form number
+              invalid: You entered the help with fees name of form. Enter the number on the court or tribunal form.
+              blank: Enter a valid name of form
+            form_type:
+              blank: Select the type of form
+            claim_type:
+              blank: Select the type of claim
         forms/application/savings_investment:
           attributes:
             min_threshold_exceeded:
@@ -979,14 +995,17 @@ en-GB:
               not_a_date: 'Enter the date in this format DD/MM/YYYY'
               date_before: This date can't be in the future
               before_submit: This date can’t be before the application was received.
-
             emergency_reason:
               cant_have_emergency_reason_without_emergency: "Enter reason for emergency"
               too_long: Enter the reason using less than 500 characters
               blank: Enter reason for emergency
             form_name:
-              invalid: You entered the help with fees form number. Enter the number on the court or tribunal form.
-              blank: Enter a valid form number
+              invalid: You entered the help with fees name of form. Enter the number on the court or tribunal form.
+              blank: Enter a valid name of form
+            form_type:
+              blank: Select the type of form
+            claim_type:
+              blank: Select the type of claim
 
         forms/fee_approval:
           attributes:

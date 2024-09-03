@@ -4,7 +4,7 @@ RSpec.describe Forms::OnlineApplication do
   subject(:form) { described_class.new(online_application) }
 
   params_list = [:fee, :jurisdiction_id, :benefits_override, :date_received, :day_date_received, :case_number,
-                 :month_date_received, :year_date_received, :form_name, :emergency, :emergency_reason, :user_id, :discretion_applied]
+                 :month_date_received, :year_date_received, :form_name, :form_type, :claim_type, :emergency, :emergency_reason, :user_id, :discretion_applied]
 
   let(:online_application) { build_stubbed(:online_application) }
 
@@ -198,6 +198,40 @@ RSpec.describe Forms::OnlineApplication do
       end
     end
 
+    describe 'form_type' do
+      let(:online_application) do
+        build_stubbed(:online_application, :completed)
+      end
+
+      context 'when form_type is "Other"' do
+        it { is_expected.to be_valid }
+      end
+
+      context 'when form_type is "Other" and form_name is nil' do
+        let(:online_application) do
+          build_stubbed(:online_application, :completed, form_name: nil)
+        end
+
+        it { is_expected.not_to be_valid }
+      end
+
+      context 'when form_type is "N1 Part 7 Claim" and claim_type is nil' do
+        let(:online_application) do
+          build_stubbed(:online_application, :completed, form_type: 'N1 Part 7 Claim', claim_type: nil)
+        end
+
+        it { is_expected.not_to be_valid }
+      end
+
+      context 'when form_type is "N1 Part 7 Claim" and claim_type is "Specified"' do
+        let(:online_application) do
+          build_stubbed(:online_application, :completed, form_type: 'N1 Part 7 Claim', claim_type: "Specified")
+        end
+
+        it { is_expected.to be_valid }
+      end
+    end
+
     describe 'form_name' do
       let(:online_application) { build_stubbed(:online_application, :completed, form_name: form_name, date_received: 1.minute.from_now) }
 
@@ -250,6 +284,8 @@ RSpec.describe Forms::OnlineApplication do
           fee: 100.23,
           jurisdiction_id: jurisdiction.id,
           date_received: Time.zone.today,
+          form_type: 'Other',
+          claim_type: nil,
           form_name: 'E45',
           emergency: true,
           emergency_reason: 'SOME REASON',
@@ -263,7 +299,7 @@ RSpec.describe Forms::OnlineApplication do
       end
 
       describe 'the saved online application' do
-        [:fee, :jurisdiction_id, :date_received, :form_name, :emergency_reason, :benefits_override, :user_id].each do |key|
+        [:fee, :jurisdiction_id, :date_received, :form_type, :form_name, :emergency_reason, :benefits_override, :user_id].each do |key|
           it "has the correct :#{key}" do
             expect(reloaded_application.send(key)).to eql(params[key])
           end

@@ -33,4 +33,5 @@
 //= require error_class_loader
 //= require refund
 //= require date_received_online
+//= require process_details
 

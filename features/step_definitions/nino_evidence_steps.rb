@@ -39,6 +39,8 @@ When("I create Application C") do
   dashboard_page.click_look_up
   expect(process_online_application_page.content).to have_application_details_header
   process_online_application_page.content.jurisdiction.click
+  choose('other_radio', allow_label_click: true)
+  process_online_application_page.content.form_input.set 'ABC123'
   process_online_application_page.click_next
   complete_processing
 end
@@ -95,6 +97,8 @@ Then("I create Application D") do
   dashboard_page.click_look_up
   expect(process_online_application_page.content).to have_application_details_header
   process_online_application_page.content.jurisdiction.click
+  choose('other_radio', allow_label_click: true)
+  process_online_application_page.content.form_input.set 'ABC123'
   process_online_application_page.click_next
   complete_processing
 end
@@ -129,6 +133,8 @@ Then("I create Application E") do
 
   expect(process_online_application_page.content).to have_application_details_header
   process_online_application_page.content.jurisdiction.click
+  choose('other_radio', allow_label_click: true)
+  process_online_application_page.content.form_input.set 'ABC123'
   process_online_application_page.click_next
   complete_processing
 end
@@ -213,6 +219,8 @@ When("I create Application C with the same ho_number") do
 
   expect(process_online_application_page.content).to have_application_details_header
   process_online_application_page.content.jurisdiction.click
+  choose('other_radio', allow_label_click: true)
+  process_online_application_page.content.form_input.set 'ABC123'
   process_online_application_page.click_next
   complete_processing
 end
@@ -232,6 +240,8 @@ When("I create Application C with the same ho_number and lowercase ho_number") d
 
   expect(process_online_application_page.content).to have_application_details_header
   process_online_application_page.content.jurisdiction.click
+  choose('other_radio', allow_label_click: true)
+  process_online_application_page.content.form_input.set 'ABC123'
   process_online_application_page.click_next
   complete_processing
 end
@@ -246,6 +256,8 @@ Then("I create Application D with the same ho_number") do
   dashboard_page.click_look_up
   expect(process_online_application_page.content).to have_application_details_header
   process_online_application_page.content.jurisdiction.click
+  choose('other_radio', allow_label_click: true)
+  process_online_application_page.content.form_input.set 'ABC123'
   process_online_application_page.click_next
   complete_processing
 end
@@ -283,6 +295,8 @@ Then("I create Application E with the same ho_number") do
   dashboard_page.click_look_up
   expect(process_online_application_page.content).to have_application_details_header
   process_online_application_page.content.jurisdiction.click
+  choose('other_radio', allow_label_click: true)
+  process_online_application_page.content.form_input.set 'ABC123'
   process_online_application_page.click_next
   complete_processing
 end

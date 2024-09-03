@@ -11,7 +11,7 @@ class ApplicationFormRepository
     form_class = format_form_class_name(form_name)
     @form = form_class.new(application.detail)
     update_form_attributes_and_save
-    udpate_outcome
+    update_outcome
     @form
   end
 
@@ -39,7 +39,7 @@ class ApplicationFormRepository
     application.update(outcome: outcome, application_type: application_type)
   end
 
-  def udpate_outcome
+  def update_outcome
     return if continue_with_discretion_applied?
 
     application_outcome_and_type('none', 'none')

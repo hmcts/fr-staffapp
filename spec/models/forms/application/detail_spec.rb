@@ -7,6 +7,7 @@ RSpec.describe Forms::Application::Detail do
                  :day_date_received, :month_date_received, :year_date_received, :probate,
                  :date_of_death, :day_date_of_death, :month_date_of_death, :year_date_of_death,
                  :deceased_name, :refund, :date_fee_paid, :form_name,
+                 :form_type, :claim_type,
                  :day_date_fee_paid, :month_date_fee_paid, :year_date_fee_paid,
                  :case_number, :emergency, :emergency_reason, :discretion_applied,
                  :discretion_manager_name, :discretion_reason, :statement_signed_by]
@@ -106,6 +107,7 @@ RSpec.describe Forms::Application::Detail do
                    day_date_of_death: date_of_death_day,
                    month_date_of_death: date_of_death_month,
                    year_date_of_death: date_of_death_year,
+                   form_type: 'Other',
                    form_name: 'ABC123' }
         described_class.new(params)
       end
@@ -191,9 +193,44 @@ RSpec.describe Forms::Application::Detail do
       end
 
       context 'when form_name is blank' do
+        let(:form_type) { 'Other' }
         let(:form_name) { '' }
 
         it { is_expected.not_to be_valid }
+      end
+    end
+
+    describe 'form_type' do
+      let(:detail) do
+        build_stubbed(:complete_detail)
+      end
+
+      context 'when form_type is "Other"' do
+        it { is_expected.to be_valid }
+      end
+
+      context 'when form_type is "Other" and form_name is nil' do
+        let(:detail) do
+          build_stubbed(:complete_detail, form_name: nil)
+        end
+
+        it { is_expected.not_to be_valid }
+      end
+
+      context 'when form_type is "N1 Part 7 Claim" and claim_type is nil' do
+        let(:detail) do
+          build_stubbed(:complete_detail, form_type: 'N1 Part 7 Claim', claim_type: nil)
+        end
+
+        it { is_expected.not_to be_valid }
+      end
+
+      context 'when form_type is "N1 Part 7 Claim" and claim_type is "Specified"' do
+        let(:detail) do
+          build_stubbed(:complete_detail, form_type: 'N1 Part 7 Claim', claim_type: "Specified")
+        end
+
+        it { is_expected.to be_valid }
       end
     end
 
@@ -204,6 +241,7 @@ RSpec.describe Forms::Application::Detail do
                    date_received: date_received.try(:to_fs, :db),
                    refund: refund_status,
                    date_fee_paid: date_fee_paid.try(:to_fs, :db),
+                   form_type: 'Other',
                    form_name: 'ABC123' }
         described_class.new(params)
       end
@@ -221,6 +259,7 @@ RSpec.describe Forms::Application::Detail do
       describe 'when refund unchecked' do
         let(:date_fee_paid) { nil }
         let(:refund_status) { false }
+        let(:form_type) { 'Other' }
 
         it { is_expected.to be_valid }
 
@@ -373,6 +412,7 @@ RSpec.describe Forms::Application::Detail do
                    date_received: Time.zone.yesterday,
                    emergency: true,
                    emergency_reason: 'REASON',
+                   form_type: 'Other',
                    form_name: 'ABC123' }
         described_class.new(params)
       end
@@ -455,6 +495,7 @@ RSpec.describe Forms::Application::Detail do
           fee: 11.34,
           date_received: Time.zone.today,
           date_fee_paid: 1.month.ago.to_fs(:db),
+          form_type: 'Other',
           form_name: 'ABC123' }
       }
 

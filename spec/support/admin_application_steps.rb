@@ -16,7 +16,8 @@ def fill_application_details(court_fee = '1000')
   fill_in 'application_fee', with: court_fee
   select_jurisdiction
   fill_in_date_received(Date.yesterday)
-  fill_in 'Form number', with: 'ABC123'
+  select_other_application
+  fill_in 'application_form_name', with: 'ABC123'
   click_button 'Next'
 end
 
@@ -24,7 +25,8 @@ def fill_application_refund_details(court_fee = '1000')
   expect(page).to have_text 'Application details'
   fill_in 'application_fee', with: court_fee
   select_jurisdiction
-  fill_in 'Form number', with: 'ABC123'
+  select_other_application
+  fill_in 'application_form_name', with: 'ABC123'
   fill_application_dates
 end
 
@@ -42,8 +44,8 @@ def fill_application_emergency_details
   fill_in 'application_fee', with: '1000'
   select_jurisdiction
   fill_in_date_received(Date.yesterday)
-
-  fill_in 'Form number', with: 'ABC123'
+  select_other_application
+  fill_in 'application_form_name', with: 'ABC123'
   check 'This is an emergency case'
   fill_in 'Reason for emergency', with: 'Iam in a hurry'
   click_button 'Next'
@@ -137,14 +139,15 @@ def fill_application_date_over_limit
   select_jurisdiction
   fill_in_date_received(Date.yesterday)
 
-  fill_in 'Form number', with: 'ABC123'
+  fill_in 'application_form_name', with: 'ABC123'
   check 'This is a refund case'
 end
 
 def fill_application_date_set_discretion_no
   fill_application_date_over_limit
   fill_in_date_fee_paid(4.months.ago.to_date)
-  fill_in 'Form number', with: 'ABC123'
+  select_other_application
+  fill_in 'application_form_name', with: 'ABC123'
   click_button 'Next'
 
   choose 'application_discretion_applied_false'
@@ -156,6 +159,7 @@ def fill_application_date_set_discretion_yes
   fill_in_date_fee_paid(4.months.ago.to_date)
   click_button 'Next'
 
+  select_other_application
   choose 'application_discretion_applied_true'
 
   within(:css, '#discretion-applied-yes-only') do
@@ -179,4 +183,8 @@ def fill_in_date_fee_paid(date_fee_paid)
   fill_in 'application_day_date_fee_paid', with: date_fee_paid.day
   fill_in 'application_month_date_fee_paid', with: date_fee_paid.month
   fill_in 'application_year_date_fee_paid', with: date_fee_paid.year
+end
+
+def select_other_application
+  choose('other_radio')
 end

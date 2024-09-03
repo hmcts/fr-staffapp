@@ -52,7 +52,7 @@ RSpec.describe Views::Reports::OcmcDataExport do
     end
 
     it 'first row are keys' do
-      keys = "Office,HwF reference number,Fee,Application type,Form,Refund,Income,Income period,Children,Age band under 14," \
+      keys = "Office,HwF reference number,Fee,Application type,Form Type,Claim Type,Form Name,Refund,Income,Income period,Children,Age band under 14," \
              "Age band 14+,Married,Decision,Applicant pays estimate,Applicant pays,Departmental cost estimate,Departmental cost," \
              "Source,Granted?,Evidence checked?,Capital Band,Saving and Investments,Case number,Date received,Statement signed by," \
              "Partner NI entered,Partner name entered,HwF Scheme"

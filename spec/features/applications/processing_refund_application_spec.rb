@@ -58,6 +58,7 @@ RSpec.feature 'Processing refund application with valid date received date' do
       year = find(:xpath, './/input[@id="online_application_year_date_received"]').value
       date_received = "#{day}/#{month}/#{year}".to_date.to_fs(:db)
       expect(date_received).to eq(online_application_1.date_received.to_fs(:db))
+      choose "Other"
 
       click_button 'Next'
 
@@ -75,6 +76,7 @@ RSpec.feature 'Processing refund application with valid date received date' do
       click_button 'Look up'
       expect(page).to have_content "Application details"
       choose jurisdiction.name
+      choose "Other"
       day = find(:xpath, './/input[@id="online_application_day_date_received"]').value
       month = find(:xpath, './/input[@id="online_application_month_date_received"]').value
       year = find(:xpath, './/input[@id="online_application_year_date_received"]').value
@@ -336,7 +338,6 @@ RSpec.feature 'Processing refund application with valid date received date' do
           fill_in 'Discretion reason', with: 'Looks legit'
         end
         click_button 'Next'
-
         choose 'Less than £3,000'
         fill_in 'application_amount', with: 0
         click_button 'Next'

@@ -26,5 +26,5 @@ end
 
 Then("I should see the application details populated with information") do
   expect(application_details_page.content).to have_header
-  expect(application_details_page.content.form_input['value']).to eq 'C100'
+  expect(find_by_id('application_fee').value).to eq '600.0'
 end

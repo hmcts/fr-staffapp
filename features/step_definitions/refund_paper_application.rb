@@ -41,6 +41,8 @@ Then("I see two discretion related errors") do
 end
 
 When("I submit after providing Delivery Manager name or Discretion reason") do
+  application_details_page.choose_other_radio_button
+  application_details_page.content.form_input.set 'C100'
   application_details_page.content.refund_section.delivery_manager_name_input.set 'Test Name'
   application_details_page.content.refund_section.discretion_reason_input.set 'Test Reason'
   application_details_page.click_next
@@ -76,6 +78,8 @@ Then("I should see the Discretionary reason") do
 end
 
 When("I select No to Delivery Manager discretion applied? and submit form") do
+  application_details_page.choose_other_radio_button
+  application_details_page.content.form_input.set 'C100'
   application_details_page.content.refund_section.no_answer.click
   application_details_page.click_next
 end

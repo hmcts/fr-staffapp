@@ -9,6 +9,8 @@ end
 
 When('I fill in missing online application details') do
   fill_in('How much is the court or tribunal fee?', with: ' 450.0')
+  choose('other_radio', allow_label_click: true)
+  process_online_application_page.content.form_input.set 'ABC123'
   process_online_application_page.content.form_input.set 'ABC123'
   process_online_application_page.content.jurisdiction.click
   process_online_application_page.fill_in_date_application_received
@@ -46,6 +48,7 @@ end
 When("I process the online application") do
   expect(process_online_application_page.content).to have_application_details_header
   fill_in('How much is the court or tribunal fee?', with: '450.0')
+  choose('other_radio', allow_label_click: true)
   process_online_application_page.content.form_input.set 'ABC123'
   process_online_application_page.content.jurisdiction.click
   process_online_application_page.fill_in_date_application_received
@@ -60,6 +63,7 @@ end
 When("I processed the applications until benefit paper evidence page") do
   expect(process_online_application_page.content).to have_application_details_header
   fill_in('How much is the court or tribunal fee?', with: '450.0')
+  choose('other_radio', allow_label_click: true)
   process_online_application_page.content.form_input.set 'ABC123'
   process_online_application_page.content.jurisdiction.click
   process_online_application_page.fill_in_date_application_received
@@ -103,7 +107,7 @@ end
 
 Then("I see Remember for the case details") do
   expect(application_details_digital_page.content.guidance.guidance_sub_heading[2].text).to eq 'Remember:'
-  expect(application_details_digital_page.content.guidance.guidance_list[2].text).to have_text 'to enter the correct form number the application relates to to tick the appropriate box under ‘case details’ if the application is for a refund, emergency or probate case. You will also need to enter the appropriate date for refund and probate cases when prompted'
+  expect(application_details_digital_page.content.guidance.guidance_list[2].text).to have_text 'to enter the correct name of form the application relates to to tick the appropriate box under ‘case details’ if the application is for a refund, emergency or probate case. You will also need to enter the appropriate date for refund and probate cases when prompted'
 end
 
 Then("I see digital Emergency advice") do

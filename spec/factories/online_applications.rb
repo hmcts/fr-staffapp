@@ -33,6 +33,8 @@ FactoryBot.define do
       deceased_name { 'Some Deceased' }
       date_of_death { 3.months.ago }
       case_number { '234567' }
+      form_type { 'Other' }
+      claim_type { nil }
       form_name { 'FGDH122' }
       email_contact { true }
       email_address { 'peter.smith@example.com' }
@@ -77,6 +79,7 @@ FactoryBot.define do
       fee { 450 }
       jurisdiction
       date_received { Time.zone.today }
+      form_type { 'Other' }
       form_name { 'ABC123' }
     end
 

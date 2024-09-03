@@ -46,6 +46,7 @@ RSpec.feature 'Online application processing Evidence check' do
 
     fill_in :online_application_fee, with: '200', wait: true
     choose Jurisdiction.first.display_full.to_s
+    choose "Other"
     fill_in :online_application_day_date_received, with: Date.current.day
     fill_in :online_application_month_date_received, with: Date.current.month
     fill_in :online_application_year_date_received, with: Date.current.year

@@ -3,7 +3,8 @@ module Views
     class Details
       include ActionView::Helpers::NumberHelper
 
-      delegate(:form_name, :case_number, :deceased_name, :emergency_reason, :calculation_scheme, to: :detail)
+      delegate(:form_name, :form_type, :claim_type, :case_number, :deceased_name, :emergency_reason,
+               :calculation_scheme, to: :detail)
 
       def initialize(application)
         @application = application
@@ -40,6 +41,14 @@ module Views
       [:date_received, :date_of_death, :date_fee_paid].each do |method|
         define_method(method) do
           format_date(detail.public_send(method))
+        end
+      end
+
+      def form_name
+        if detail.form_type == I18n.t("activemodel.attributes.forms/application/detail.form_type_n1")
+          "#{I18n.t('activemodel.attributes.forms/application/detail.form_type_n1')}: #{detail.claim_type}"
+        else
+          detail.form_name.to_s
         end
       end
 

@@ -22,18 +22,62 @@
         fieldset.govuk-fieldset
           legend.visuallyhidden Select jurisdiction
           = f.label :jurisdiction_id, class: 'govuk-label'
-          span.govuk-error-message
-            = f.label :jurisdiction_id, @form.errors[:jurisdiction_id].join(', '), class: 'error' if @form.errors[:jurisdiction_id].present?
+          - if @form.errors[:jurisdiction_id].present?
+            span.govuk-error-message
+              = f.label :jurisdiction_id, @form.errors[:jurisdiction_id].join(', '), class: 'error'
           = f.hidden_field :jurisdiction_id, value: nil
           - if @jurisdictions.present?
-            .govuk-radios.govuk-radios--small
+            .govuk-radios.govuk-radios--small#jurisdiction_radios
               =f.collection_radio_buttons(:jurisdiction_id, @jurisdictions, :id, :display_full, include_hidden: true) do |b|
                 .govuk-radios__item
-                  = b.radio_button(data: @form.jurisdiction_id, class: 'govuk-radios__input')
-                  = b.label(class: 'govuk-label govuk-radios__label')
+                  = b.radio_button(data: @form.jurisdiction_id, class: 'govuk-radios__input', id: "jurisdiction_#{b.object.id}")
+                  = b.label(for: "jurisdiction_#{b.object.id}", class: 'govuk-label govuk-radios__label')
 
           - else
             = t('error_messages.jurisdictions.none_in_office')
+
+      .govuk-form-group
+        fieldset.govuk-fieldset
+          legend.visuallyhidden = t('form_type', scope: @form.i18n_scope)
+          legend.govuk-fieldset__legend
+            = t('form_type', scope: @form.i18n_scope)
+          - if @form.errors[:form_type].present?
+            span.govuk-error-message
+              = f.label :form_type, @form.errors[:form_type].join(', '), class: 'error'
+          .govuk-radios.govuk-radios--small
+            .govuk-radios__item
+              = f.radio_button :form_type, t('form_type_n1', scope: @form.i18n_scope), { class: 'govuk-radios__input show-hide-section', id: 'form_type_n1_radio', data: { section: 'claim-type', show: 'true' }, checked: @form.form_type == t('form_type_n1', scope: @form.i18n_scope) }
+              = f.label "#{t('form_type_n1', scope: @form.i18n_scope)}", class: 'govuk-label govuk-radios__label', for: 'form_type_n1_radio'
+            #claim-type-only.start-hidden
+              .panel-indent
+                .govuk-form-group.group-level
+                  - if @form.errors[:claim_type].present?
+                    span.govuk-error-message
+                      = f.label :claim_type, @form.errors[:claim_type].join(', '), class: 'error'
+                  .govuk-radios.govuk-radios--small
+                    .govuk-radios__item
+                      = f.radio_button :claim_type, t('claim_type_specified', scope: @form.i18n_scope), { class: 'govuk-radios__input show-hide-section', checked: @form.claim_type == t('claim_type_specified', scope: @form.i18n_scope) }
+                      = f.label t('claim_type_specified', scope: @form.i18n_scope), class: 'govuk-label govuk-radios__label', for: 'online_application_claim_type_specified'
+                    .govuk-radios__item
+                      = f.radio_button :claim_type, t('claim_type_unspecified', scope: @form.i18n_scope), { class: 'govuk-radios__input show-hide-section', checked: @form.claim_type == t('claim_type_unspecified', scope: @form.i18n_scope) }
+                      = f.label t('claim_type_unspecified', scope: @form.i18n_scope), class: 'govuk-label govuk-radios__label', for: 'online_application_claim_type_unspecified'
+                    .govuk-radios__item
+                      = f.radio_button :claim_type, t('claim_type_personal_injury', scope: @form.i18n_scope), { class: 'govuk-radios__input show-hide-section', checked: @form.claim_type == t('claim_type_personal_injury', scope: @form.i18n_scope) }
+                      = f.label t('claim_type_personal_injury', scope: @form.i18n_scope), class: 'govuk-label govuk-radios__label', for: 'online_application_claim_type_personal_injury'
+            .govuk-radios__item
+              = f.radio_button :form_type, t('form_type_other', scope: @form.i18n_scope), { class: 'govuk-radios__input show-hide-section', id: 'other_radio', data: { section: 'name-of-form', show: 'true' }, checked: @form.form_type == t('form_type_other', scope: @form.i18n_scope) }
+              = f.label t('form_type_other', scope: @form.i18n_scope), class: 'govuk-label govuk-radios__label', for: 'other_radio'
+
+        #name-of-form-only
+          .panel-indent
+            .govuk-form-group.group-level
+              = f.label :form_name, class: 'govuk-label'
+                = t('form_name', scope: @form.i18n_scope)
+                span.hint.block = t('form_name_hint', scope: @form.i18n_scope)
+              - if @form.errors[:form_name].present?
+                span.govuk-error-message
+                  = f.label :form_name, @form.errors[:form_name].join(', '), class: 'error' if @form.errors[:form_name].present?
+              = f.text_field :form_name, { class: 'govuk-input govuk-!-width-one-half' }
 
       .govuk-form-group.group-level
         p.util_mb-0 =t('date_submitted', scope: @form.i18n_scope)
@@ -73,15 +117,6 @@
                   .govuk-checkboxes__item
                     = f.radio_button :discretion_applied, 'true', { class: 'govuk-checkboxes__input show-hide-section', data: { section: 'discretion-applied-yes', show: 'true'} }
                     = f.label t('discretion_applied_true', scope: @form.i18n_scope), class: 'govuk-label govuk-checkboxes__label', for: 'online_application_discretion_applied_true'
-
-
-      .govuk-form-group.group-level
-        = f.label :form_name, class: 'govuk-label'
-          =t('form_name', scope: @form.i18n_scope)
-          span.hint.block = t('form_name_hint', scope: @form.i18n_scope)
-        span.govuk-error-message
-          = f.label :form_name, @form.errors[:form_name].join(', '), class: 'error' if @form.errors[:form_name].present?
-        = f.text_field :form_name, { class: 'govuk-input govuk-!-width-one-half' }
 
       .govuk-form-group.group-level
         = f.label :case_number, class: 'govuk-label'
@@ -126,7 +161,7 @@
         p = link_to 'What to do if the fee is one of these', new_process_application_url, target: 'blank'
         h3.govuk-heading-s Remember:
         ul.govuk-list.govuk-list--bullet
-          li to complete the form number the application relates to. You may need to amend the entry to reflect the correct form number entered by the applicant
+          li to complete the name of form the application relates to. You may need to amend the entry to reflect the correct name of form entered by the applicant
 
         h2.govuk-heading-m Emergency cases
 
@@ -143,3 +178,10 @@
 
         p = link_to 'What to do if the application can’t be processed before the emergency application is heard', new_process_application_url, target: 'blank'
 
+- county_jurisdiction_id = @jurisdictions.find { |jurisdiction| jurisdiction.name == 'County' }&.id
+
+- content_for(:javascripts)
+  javascript:
+    $(document).ready(function () {
+        moj.Modules.JurisdictionModule.init(#{county_jurisdiction_id}, "online_application");
+    });

@@ -8,6 +8,8 @@ FactoryBot.define do
       probate { nil }
       case_number { 'JK123456A' }
       form_name { 'ABC123' }
+      form_type { 'Other' }
+      claim_type { nil }
       statement_signed_by { 'applicant' }
     end
 

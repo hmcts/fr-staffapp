@@ -62,6 +62,7 @@ end
 When('I successfully submit my required application details post UCD') do
   application_details_page.fill_in('How much is the court or tribunal fee?', with: '6000')
   application_details_page.content.jurisdiction.click
+  choose('other_radio', allow_label_click: true)
   application_details_page.content.form_input.set 'C100'
   application_details_page.fill_in('Case number', with: 'E71YX571')
   application_details_page.click_next

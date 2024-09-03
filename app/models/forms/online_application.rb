@@ -12,6 +12,8 @@ module Forms
         day_date_received: Integer,
         month_date_received: Integer,
         year_date_received: Integer,
+        form_type: String,
+        claim_type: String,
         form_name: String,
         case_number: String,
         emergency: Boolean,
@@ -25,6 +27,7 @@ module Forms
     define_attributes
 
     before_validation :format_date_fields, :format_fee
+    before_validation :reset_claim_type
 
     validates :fee, presence: true,
                     numericality: { allow_blank: true, less_than: 20_000 }
@@ -32,8 +35,10 @@ module Forms
     validates :emergency_reason, presence: true, if: :emergency?
     validates :emergency_reason, length: { maximum: 500 }
 
+    validates :form_type, presence: true
+    validates :claim_type, presence: true, if: -> { form_type == form_type_n1 }
     validates :form_name, format: { with: /\A((?!EX160|COP44A).)*\z/i }, allow_nil: true
-    validates :form_name, presence: true
+    validates :form_name, presence: true, if: -> { form_type == form_type_other }
 
     validates_with Validators::DateReceivedValidator
 
@@ -76,8 +81,8 @@ module Forms
       {
         fee: fee,
         jurisdiction_id: jurisdiction_id,
-        date_received: date_received,
-        form_name: form_name,
+        date_received: date_received, form_type: form_type,
+        claim_type: claim_type, form_name: form_name,
         case_number: case_number,
         benefits_override: benefits_override,
         user_id: user_id,
@@ -87,6 +92,18 @@ module Forms
 
     def format_fee
       @fee = fee.strip.to_f if fee.is_a?(String) && fee.strip.to_f.positive?
+    end
+
+    def form_type_n1
+      I18n.t('activemodel.attributes.forms/application/detail.form_type_n1')
+    end
+
+    def form_type_other
+      I18n.t('activemodel.attributes.forms/application/detail.form_type_other')
+    end
+
+    def reset_claim_type
+      self.claim_type = nil if form_type == form_type_other
     end
   end
 end

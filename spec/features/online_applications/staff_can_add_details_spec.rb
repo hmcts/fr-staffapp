@@ -43,10 +43,11 @@ RSpec.feature 'Staff can search for online application' do
 
   def when_they_fill_in_all_required_fields
     fill_in :online_application_fee, with: '200', wait: true
-    choose "online_application_jurisdiction_id_#{jurisdictions.first.id}"
+    choose "jurisdiction_#{jurisdictions.first.id}"
     fill_in :online_application_day_date_received, with: '10'
     fill_in :online_application_month_date_received, with: '10'
     fill_in :online_application_year_date_received, with: '2015'
+    choose 'Other'
     fill_in :online_application_form_name, with: 'E45'
     check :online_application_emergency
     fill_in :online_application_emergency_reason, with: 'EMERGENCY REASON'

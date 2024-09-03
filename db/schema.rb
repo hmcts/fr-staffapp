@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_10_093923) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_14_133857) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -105,6 +105,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_10_093923) do
     t.date "purged_at"
     t.text "children_age_band"
     t.string "income_period"
+    t.string "form_type"
+    t.string "claim_type"
     t.index ["business_entity_id"], name: "index_applications_on_business_entity_id"
     t.index ["created_at"], name: "index_applications_on_created_at"
     t.index ["decision_cost"], name: "index_applications_on_decision_cost"
@@ -220,6 +222,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_10_093923) do
     t.string "fee_manager_lastname"
     t.string "calculation_scheme"
     t.string "statement_signed_by"
+    t.string "form_type"
+    t.string "claim_type"
     t.index ["application_id"], name: "index_details_on_application_id"
     t.index ["case_number"], name: "index_details_on_case_number"
     t.index ["fee"], name: "index_details_on_fee"
@@ -420,6 +424,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_10_093923) do
     t.string "income_period"
     t.string "legal_representative_position"
     t.boolean "discretion_applied"
+    t.string "form_type"
+    t.string "claim_type"
     t.index ["jurisdiction_id"], name: "index_online_applications_on_jurisdiction_id"
     t.index ["reference"], name: "index_online_applications_on_reference", unique: true
   end

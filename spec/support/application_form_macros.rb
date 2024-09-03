@@ -26,7 +26,7 @@ module ApplicationFormMacros
   def complete_application_details(application)
     detail = application.detail
     fill_in 'application_fee', with: 300, wait: true
-    find(:xpath, '(//input[starts-with(@id,"application_jurisdiction_id_")])[1]').click
+    find(:xpath, '(//input[starts-with(@id,"jurisdiction_")])[1]').click
     date_received = Time.zone.yesterday
     fill_in 'application_day_date_received', with: date_received.day
     fill_in 'application_month_date_received', with: date_received.month
@@ -36,6 +36,7 @@ module ApplicationFormMacros
 
   def complete_application_details_optionals(detail)
     fill_in 'application_form_name', with: detail.form_name if detail.form_name.present?
+    select_other_application
     fill_in 'application_case_number', with: detail.case_number if detail.case_number.present?
   end
 
@@ -43,5 +44,9 @@ module ApplicationFormMacros
     fill_in 'Day', with: dob.day, id: 'application_day_date_of_birth'
     fill_in 'Month', with: dob.month, id: 'application_month_date_of_birth'
     fill_in 'Year', with: dob.year, id: 'application_year_date_of_birth'
+  end
+
+  def select_other_application
+    choose('other_radio')
   end
 end

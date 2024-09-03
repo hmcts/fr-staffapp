@@ -11,20 +11,23 @@ Then(/^I should be taken to savings and investments page$/) do
   expect(savings_investments_page.content).to have_header
 end
 
-When(/^I submit the form without a form number$/) do
+When(/^I submit the form without a name of form$/) do
   application_details_page.submit_without_form_number
 end
 
-Then(/^I should see enter a valid form number error message$/) do
+Then(/^I should see enter a valid name of form error message$/) do
+  application_details_page.choose_other_radio_button
   expect(application_details_page.content).to have_form_error_message
 end
 
-When(/^I submit the form with a help with fees form number '(.+?)'$/) do |num|
+When(/^I submit the form with a help with fees name of form '(.+?)'$/) do |num|
+  choose('other_radio', allow_label_click: true)
   application_details_page.content.form_input.set num
   application_details_page.click_next
 end
 
-Then(/^I should see you entered the help with fees form number error message$/) do
+Then(/^I should see you entered the help with fees name of form error message$/) do
+  application_details_page.choose_other_radio_button
   expect(application_details_page.content).to have_invalid_form_number_message
 end
 

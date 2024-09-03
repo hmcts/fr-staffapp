@@ -35,7 +35,9 @@ module Views
         applications.created_at as \"Created at\",
         details.fee as \"Fee\",
         applications.application_type as \"Application type\",
-        details.form_name as \"Form\",
+        CASE WHEN oa.form_type IS NOT NULL THEN oa.form_type ELSE details.form_type END as \"Form Type\",
+        CASE WHEN oa.claim_type IS NOT NULL THEN oa.claim_type ELSE details.claim_type END as \"Claim Type\",
+        CASE WHEN oa.form_name IS NOT NULL THEN oa.form_name ELSE details.form_name END as \"Form Name\",
         details.refund as \"Refund\",
         applications.income as \"Income\",
         applications.income_period as \"Income period\",
@@ -122,6 +124,7 @@ module Views
             error_response, evidence_check_id, created_at, row_number() over
             (partition by evidence_check_id order by created_at desc)
             as row_number from hmrc_checks) hc ON ec.id = hc.evidence_check_id
+        LEFT JOIN online_applications oa ON oa.id = applications.online_application_id
         INNER JOIN \"applicants\" ON \"applicants\".\"application_id\" = \"applications\".\"id\"
         INNER JOIN \"details\" ON \"details\".\"application_id\" = \"applications\".\"id\"
         WHERE applications.office_id = #{@office_id}
