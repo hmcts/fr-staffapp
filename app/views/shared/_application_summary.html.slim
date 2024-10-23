@@ -1,6 +1,4 @@
 
-h1.govuk-heading-xl Check details
-
 h2.govuk-heading-m Date received and fee status
 dl.govuk-summary-list
   .govuk-summary-list__row
@@ -257,68 +255,70 @@ dl.govuk-summary-list
             span.govuk-visually-hidden=t('summary.override?')
 
 
-h2.govuk-heading-m Children
-dl.govuk-summary-list
-  .govuk-summary-list__row
-    dt.govuk-summary-list__key =t('summary.dependents')
-    dd.govuk-summary-list__value =@children.dependents
-    - if show_links
-      dd.govuk-summary-list__actions
-        =link_to application_dependents_path(@application) do
-          = 'Change'
-          span.govuk-visually-hidden=t('summary.dependents')
-
-  - if @application.children?
+- if @application.children?
+  h2.govuk-heading-m Children
+  dl.govuk-summary-list
     .govuk-summary-list__row
-      dt.govuk-summary-list__key =t('summary.children_age_band')
-      dd.govuk-summary-list__value =@children.children_age_band
+      dt.govuk-summary-list__key =t('summary.dependents')
+      dd.govuk-summary-list__value =@children.dependents
       - if show_links
         dd.govuk-summary-list__actions
           =link_to application_dependents_path(@application) do
             = 'Change'
-            span.govuk-visually-hidden=t('summary.children_age_band')
+            span.govuk-visually-hidden=t('summary.dependents')
 
-h2.govuk-heading-m Income
-dl.govuk-summary-list
-  .govuk-summary-list__row
-    dt.govuk-summary-list__key =t('summary.income')
-    dd.govuk-summary-list__value =@income.income
-    - if show_links
-      dd.govuk-summary-list__actions
-        =link_to application_incomes_path(@application) do
-          = 'Change'
-          span.govuk-visually-hidden=t('summary.income')
+    - if @application.children?
+      .govuk-summary-list__row
+        dt.govuk-summary-list__key =t('summary.children_age_band')
+        dd.govuk-summary-list__value =@children.children_age_band
+        - if show_links
+          dd.govuk-summary-list__actions
+            =link_to application_dependents_path(@application) do
+              = 'Change'
+              span.govuk-visually-hidden=t('summary.children_age_band')
 
-
-  .govuk-summary-list__row
-    dt.govuk-summary-list__key =t('summary.income_period')
-    dd.govuk-summary-list__value =@income.income_period
-    - if show_links
-      dd.govuk-summary-list__actions
-        =link_to application_incomes_path(@application) do
-          = 'Change'
-          span.govuk-visually-hidden=t('summary.income_period')
-
-
-  .govuk-summary-list__row
-    dt.govuk-summary-list__key =t('summary.income_kind_applicant')
-    dd.govuk-summary-list__value =@income.income_kind_applicant
-    - if show_links
-      dd.govuk-summary-list__actions
-        =link_to application_income_kind_applicants_path(@application) do
-          = 'Change'
-          span.govuk-visually-hidden=t('summary.income_kind_applicant')
-
-
-  - if @applicant.married
+- if @income.income
+  h2.govuk-heading-m Income
+  dl.govuk-summary-list
     .govuk-summary-list__row
-      dt.govuk-summary-list__key =t('summary.income_kind_partner')
-      dd.govuk-summary-list__value =@income.income_kind_partner
+      dt.govuk-summary-list__key =t('summary.income')
+      dd.govuk-summary-list__value =@income.income
       - if show_links
         dd.govuk-summary-list__actions
-          =link_to application_income_kind_partners_path(@application) do
+          =link_to application_incomes_path(@application) do
             = 'Change'
-            span.govuk-visually-hidden=t('summary.income_kind_partner')
+            span.govuk-visually-hidden=t('summary.income')
+
+
+    .govuk-summary-list__row
+      dt.govuk-summary-list__key =t('summary.income_period')
+      dd.govuk-summary-list__value =@income.income_period
+      - if show_links
+        dd.govuk-summary-list__actions
+          =link_to application_incomes_path(@application) do
+            = 'Change'
+            span.govuk-visually-hidden=t('summary.income_period')
+
+
+    .govuk-summary-list__row
+      dt.govuk-summary-list__key =t('summary.income_kind_applicant')
+      dd.govuk-summary-list__value =@income.income_kind_applicant
+      - if show_links
+        dd.govuk-summary-list__actions
+          =link_to application_income_kind_applicants_path(@application) do
+            = 'Change'
+            span.govuk-visually-hidden=t('summary.income_kind_applicant')
+
+
+    - if @applicant.married
+      .govuk-summary-list__row
+        dt.govuk-summary-list__key =t('summary.income_kind_partner')
+        dd.govuk-summary-list__value =@income.income_kind_partner
+        - if show_links
+          dd.govuk-summary-list__actions
+            =link_to application_income_kind_partners_path(@application) do
+              = 'Change'
+              span.govuk-visually-hidden=t('summary.income_kind_partner')
 
 h2.govuk-heading-m Declaration and statement of truth
 dl.govuk-summary-list

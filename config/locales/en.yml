@@ -86,6 +86,7 @@ en-GB:
     less_then: 'Less than £4,250'
     between: 'Between £4,250 and £15,999'
     more_then: 'More than £16,000'
+    amount_total: Savings and Investments total
     on_benefits?: Benefits declared in application
     override?: Correct evidence provided
     dependents: Applicant has children living with them or that they are financially supporting
