@@ -139,10 +139,10 @@ RSpec.describe Views::Reports::HmrcOcmcDataExport do
       end
 
       context 'income_kind' do
-        let(:income_kind) { { applicant: ["Wages", "Tax credit"] } }
+        let(:income_kind) { { applicant: [:wage, :working_credit] } }
         it "calculates correct value" do
           data_row = data[3]
-          expect(data_row).to include('Wages,Tax credit')
+          expect(data_row).to include('Wages before tax and National Insurance are taken off,Working Tax Credit')
         end
       end
 

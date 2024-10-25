@@ -145,16 +145,21 @@ module Views
       end
       # rubocop:enable Metrics/AbcSize
 
-      def income_kind(value)
+      def income_kind(value) # rubocop:disable Metrics/MethodLength
         return unless value
+
         income_kind_hash = YAML.parse(value).to_ruby
         return if income_kind_hash.blank?
-        applicant = income_kind_hash[:applicant].join(',')
-        partner = income_kind_hash[:partner].try(:join, ',')
+        applicant = income_kind_hash[:applicant].map do |kind|
+          I18n.t(kind, scope: ['activemodel.attributes.forms/application/income_kind_applicant', 'kinds'])
+        end.join(',')
+        partner = income_kind_hash[:partner].try(:map) do |kind|
+          I18n.t(kind, scope: ['activemodel.attributes.forms/application/income_kind_partner', 'kinds'])
+        end.try(:join, ',')
         [applicant, partner].compact_blank.join(", ")
       rescue TypeError
         ""
-      end
+      end # rubocop:enable Metrics/MethodLength
 
       def hmrc_total_income(row)
         paye = hmrc_income(row['HMRC total income'])

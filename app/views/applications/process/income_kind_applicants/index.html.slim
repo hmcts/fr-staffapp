@@ -19,7 +19,7 @@
               = f.label :income_kind_applicant, @form.errors[:income_kind_applicant].join(', '), class: 'error'
 
           .govuk-checkboxes
-            - income_kind_applicants.each do |kind|
+            - income_kind_list&.each do |kind|
               .govuk-checkboxes__item
                 = f.check_box :income_kind_applicant, { multiple: true, class: 'govuk-checkboxes__input', checked: kind_checked(@application, @form, :applicant, kind) }, kind, nil
                 label.govuk-label.govuk-checkboxes__label for='application_income_kind_applicant_#{kind}'

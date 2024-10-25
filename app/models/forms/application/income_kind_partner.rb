@@ -30,20 +30,13 @@ module Forms
       end
 
       def none_of_above_selected
-        if income_kind_partner.include?('20') && income_kind_partner.count > 1
+        if income_kind_partner.include?('none_of_the_above') && income_kind_partner.count > 1
           errors.add(:income_kind_partner, :invalid)
         end
       end
 
       def format_income_kind
-        @income_kind = { applicant: income_kind_applicant, partner: income_kind_text_values(@income_kind_partner) }
-      end
-
-      def income_kind_text_values(kinds)
-        scope = 'activemodel.attributes.forms/application/income_kind_partner'
-        kinds.map do |kind|
-          I18n.t(kind, scope: [scope, 'kinds'])
-        end
+        @income_kind = { applicant: income_kind_applicant, partner: @income_kind_partner }
       end
 
       def income_kind_applicant

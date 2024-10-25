@@ -13,7 +13,7 @@ RSpec.describe IncomeKindHelper do
       let(:application) { build_stubbed(:application, income_kind: { applicant: ['Wages before tax and National Insurance are taken off'] }) }
       let(:form) { Forms::Application::IncomeKindApplicant }
       let(:claimant) { :applicant }
-      let(:kind) { 1 }
+      let(:kind) { :wage }
 
       it { is_expected.to be true }
     end

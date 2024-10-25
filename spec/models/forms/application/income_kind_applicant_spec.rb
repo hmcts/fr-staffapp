@@ -33,13 +33,13 @@ RSpec.describe Forms::Application::IncomeKindApplicant do
         update_form
       end
       context 'when attributes are correct' do
-        let(:params) { { income_kind_applicant: ['20'] } }
+        let(:params) { { income_kind_applicant: ['none_of_the_above'] } }
 
         it { is_expected.to be true }
       end
 
       context 'when user picks none of the above and more income kinds' do
-        let(:params) { { income_kind_applicant: ['1', '20'] } }
+        let(:params) { { income_kind_applicant: ['wage', 'none_of_the_above'] } }
 
         it { is_expected.to be false }
 
@@ -59,7 +59,7 @@ RSpec.describe Forms::Application::IncomeKindApplicant do
     let(:application) { create(:application, income_kind: { applicant: ['test'], partner: ['test2'] }) }
 
     context 'when attributes are correct' do
-      let(:params) { { income_kind_applicant: [1] } }
+      let(:params) { { income_kind_applicant: ['wage'] } }
 
       it { is_expected.to be true }
 
@@ -69,7 +69,7 @@ RSpec.describe Forms::Application::IncomeKindApplicant do
       end
 
       it 'saves the parameters in the detail' do
-        expect(application.income_kind).to eq({ applicant: ['Wages before tax and National Insurance are taken off'], partner: ['test2'] })
+        expect(application.income_kind).to eq({ applicant: ['wage'], partner: ['test2'] })
       end
     end
 
