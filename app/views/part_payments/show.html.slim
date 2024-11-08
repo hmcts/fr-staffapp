@@ -15,20 +15,12 @@ h1.govuk-heading-xl #{@part_payment.application.reference} - Waiting for part-pa
       .govuk-details__text
         = link_to 'Return application', send("return_letter_part_payment_path", @part_payment), class: 'govuk-button'
 
--if hide_fee_status?
-  =build_section_with_defaults 'Personal details', @applicant
--else
-   =build_section_with_defaults 'Date received and fee status', @fee_status
-   =build_section_with_defaults 'Personal details', @applicant
 
-=build_section_with_defaults 'Application details', @details
-=build_section 'Benefits', @application_view, ['benefits']
-=build_section 'Income', @application_view, ['number_of_children', 'total_monthly_income', 'income_kind_applicant', 'income_kind_partner', 'income_period']
+- if show_ucd_changes?(@details.calculation_scheme)
+  = render("post_ucd")
+- else
+  = render("pre_ucd")
 
--if show_ucd_changes?(@application_view.calculation_scheme_value)
-  =build_section_with_defaults 'Declaration and statement of truth', @declaration
-  - if @representative.display_section?
-    =build_section_with_defaults 'Representative details', @representative
 
 =build_section 'Result', @application_view, result_section_list
 

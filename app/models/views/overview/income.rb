@@ -24,6 +24,11 @@ module Views
       end
       alias income_new income
 
+      def income_from_evidence
+        return if @application.income.blank? && @application.evidence_check.blank?
+        "£#{@application.evidence_check.income.try(:round)}"
+      end
+
       def income_period
         return unless @application.income
         scope = 'activemodel.attributes.forms/application/income'

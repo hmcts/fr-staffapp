@@ -9,7 +9,7 @@ class PartPaymentsController < ApplicationController
   before_action :store_path, except: [:accuracy_save, :income_save, :confirmation]
   before_action :clear_path, only: :confirmation
 
-  include SectionViewsHelper
+  include ProcessedViewsHelper
   include FilterApplicationHelper
 
   def index
@@ -20,7 +20,7 @@ class PartPaymentsController < ApplicationController
     authorize part_payment
 
     processing_details
-    build_sections
+    assign_views
   end
 
   def accuracy
@@ -40,7 +40,7 @@ class PartPaymentsController < ApplicationController
 
   def summary
     @part_payment = part_payment
-    build_sections
+    assign_views
     @result = Views::PartPayment::Result.new(part_payment)
   end
 
@@ -50,12 +50,12 @@ class PartPaymentsController < ApplicationController
   end
 
   def confirmation
-    build_sections
+    assign_views
     @result = Views::PartPayment::Result.new(part_payment)
   end
 
   def return_letter
-    build_sections
+    assign_views
   end
 
   def return_application

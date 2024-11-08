@@ -11,7 +11,7 @@ dl.govuk-summary-list
     dd.govuk-summary-list__actions
       =link_to accuracy_evidence_path(@evidence) do
         = 'Change'
-        span.govuk-visually-hidden=t('summary.date_received')
+        span.govuk-visually-hidden=t('summary.ready_to_process')
 
   - if @evidence.income
     .govuk-summary-list__row
@@ -20,7 +20,7 @@ dl.govuk-summary-list
       dd.govuk-summary-list__actions
         =link_to income_evidence_path(@evidence) do
           = 'Change'
-          span.govuk-visually-hidden=t('summary.date_received')
+          span.govuk-visually-hidden=t('summary.income')
 
   - if !@evidence.correct
     .govuk-summary-list__row
@@ -29,7 +29,7 @@ dl.govuk-summary-list
       dd.govuk-summary-list__actions
         =link_to evidence_accuracy_incorrect_reason_path(@evidence) do
           = 'Change'
-          span.govuk-visually-hidden=t('summary.date_received')
+          span.govuk-visually-hidden=t('summary.reasons')
 
 
 = render("shared/application_summary", show_links: false)

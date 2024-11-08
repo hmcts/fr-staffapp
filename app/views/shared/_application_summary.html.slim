@@ -142,14 +142,15 @@ dl.govuk-summary-list
           = 'Change'
           span.govuk-visually-hidden=t('summary.form_name')
 
-  .govuk-summary-list__row
-    dt.govuk-summary-list__key =t('summary.case_number')
-    dd.govuk-summary-list__value =@details.case_number
-    - if show_links
-      dd.govuk-summary-list__actions
-        =link_to application_details_path(@application) do
-          = 'Change'
-          span.govuk-visually-hidden=t('summary.case_number')
+  - if @details.case_number.present?
+    .govuk-summary-list__row
+      dt.govuk-summary-list__key =t('summary.case_number')
+      dd.govuk-summary-list__value =@details.case_number
+      - if show_links
+        dd.govuk-summary-list__actions
+          =link_to application_details_path(@application) do
+            = 'Change'
+            span.govuk-visually-hidden=t('summary.case_number')
 
   - if @details.probate
     .govuk-summary-list__row
@@ -276,6 +277,7 @@ dl.govuk-summary-list
             = 'Change'
             span.govuk-visually-hidden=t('summary.children_age_band')
 
+
 - if @income.income
   h2.govuk-heading-m Income
   dl.govuk-summary-list
@@ -287,6 +289,16 @@ dl.govuk-summary-list
           =link_to application_incomes_path(@application) do
             = 'Change'
             span.govuk-visually-hidden=t('summary.income')
+
+    - if @application.evidence_check
+      .govuk-summary-list__row
+        dt.govuk-summary-list__key =t('summary.income_from_evidence')
+        dd.govuk-summary-list__value =@income.income_from_evidence
+        - if show_links
+          dd.govuk-summary-list__actions
+            =link_to application_incomes_path(@application) do
+              = 'Change'
+              span.govuk-visually-hidden=t('summary.income_from_evidence')
 
 
     .govuk-summary-list__row
