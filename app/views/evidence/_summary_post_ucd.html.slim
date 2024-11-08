@@ -1,0 +1,41 @@
+- content_for :page_title
+  = "Check details"
+
+h1.govuk-heading-xl Check details
+
+h2.govuk-heading-m Evidence
+dl.govuk-summary-list
+  .govuk-summary-list__row
+    dt.govuk-summary-list__key =t('summary.ready_to_process')
+    dd.govuk-summary-list__value =@evidence_view.correct
+    dd.govuk-summary-list__actions
+      =link_to accuracy_evidence_path(@evidence) do
+        = 'Change'
+        span.govuk-visually-hidden=t('summary.date_received')
+
+  - if @evidence.income
+    .govuk-summary-list__row
+      dt.govuk-summary-list__key =t('summary.income')
+      dd.govuk-summary-list__value =@evidence.income
+      dd.govuk-summary-list__actions
+        =link_to income_evidence_path(@evidence) do
+          = 'Change'
+          span.govuk-visually-hidden=t('summary.date_received')
+
+  - if !@evidence.correct
+    .govuk-summary-list__row
+      dt.govuk-summary-list__key =t('summary.reasons')
+      dd.govuk-summary-list__value =@evidence_view.incorrect_reason_category
+      dd.govuk-summary-list__actions
+        =link_to evidence_accuracy_incorrect_reason_path(@evidence) do
+          = 'Change'
+          span.govuk-visually-hidden=t('summary.date_received')
+
+
+= render("shared/application_summary", show_links: false)
+= render(partial: 'shared/remission_type', locals: { source: @result })
+
+
+= form_for @evidence, url: "summary_save_evidence".to_sym, method: :post, html: { autocomplete: 'off' } do |f|
+  = f.submit 'Complete processing', :class => 'govuk-button primary large'
+

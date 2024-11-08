@@ -8,6 +8,7 @@ module ProcessedViewsHelper
     @savings = Views::Overview::SavingsAndInvestments.new(application.saving)
     @children = Views::Overview::Children.new(application)
     @income = Views::Overview::Income.new(application)
+    @benefits = Views::Overview::Benefits.new(application)
     @application_view = Views::Overview::Application.new(application)
     @result = Views::ApplicationResult.new(application)
     @declaration = Views::Overview::Declaration.new(application)

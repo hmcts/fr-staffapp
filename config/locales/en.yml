@@ -104,6 +104,9 @@ en-GB:
       full_name: 'Full name'
       organisation: Organisation
       position: Position held at firm
+    ready_to_process: 'Ready to process'
+    reasons: 'Reasons'
+    income: 'Income'
 
   processed_applications:
     result:
