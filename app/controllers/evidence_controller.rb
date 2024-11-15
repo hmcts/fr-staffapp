@@ -69,7 +69,7 @@ class EvidenceController < ApplicationController
   end
 
   def return_letter
-    build_sections
+    assign_views
   end
 
   def return_application

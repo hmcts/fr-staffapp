@@ -141,6 +141,7 @@ describe HmrcApiService do
 
     context 'match_user partner' do
       let(:check_type) { 'partner' }
+      let(:married) { true }
       let(:partner_info) {
         {
           dob: "2000-02-02",
@@ -252,6 +253,7 @@ describe HmrcApiService do
 
       context 'partner' do
         let(:check_type) { 'partner' }
+        let(:married) { true }
         it 'ni_number' do
           expect(service.hmrc_check.ni_number).to eql('SN741258C')
         end
