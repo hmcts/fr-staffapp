@@ -19,6 +19,7 @@ class EvidenceCheckSelector
   end
 
   def evidence_check_type
+    return 'random'
     if random_evidence_check?
       'random'
     elsif flagged?

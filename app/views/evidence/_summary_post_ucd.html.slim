@@ -33,7 +33,7 @@ dl.govuk-summary-list
 
 
 = render("shared/application_summary", show_links: false)
-= render(partial: 'shared/remission_type', locals: { source: @result })
+= render(partial: 'shared/remission_type_post_ucd', locals: { source: @application_view })
 
 
 = form_for @evidence, url: "summary_save_evidence".to_sym, method: :post, html: { autocomplete: 'off' } do |f|

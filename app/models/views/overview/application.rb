@@ -16,6 +16,14 @@ module Views
         ['benefits', 'dependants', 'number_of_children', 'total_monthly_income', 'savings']
       end
 
+      def state
+        @application.state
+      end
+
+      def evidence_check_outcome
+        @application.evidence_check.outcome
+      end
+
       def benefits_result
         if type.eql?('benefit')
           return format_locale('passed_by_override') if @application.decision_override.present?
