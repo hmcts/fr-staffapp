@@ -3,6 +3,7 @@ module Views
     class Application
       include OverviewHelper
       include HmrcHelper
+      include IncomeHelper
 
       include ActionView::Helpers::NumberHelper
 
@@ -30,27 +31,6 @@ module Views
           return format_locale('passed_with_evidence') if benefit_override?
           format_locale(benefit_result) if @application.last_benefit_check
         end
-      end
-
-      def income_result
-        return if @application.application_type != "income"
-        format_locale(['full', 'part'].include?(result).to_s)
-      end
-
-      def income_kind_applicant
-        return if @application.income_kind.nil? || @application.income_kind[:applicant].blank?
-        @application.income_kind[:applicant].join(', ')
-      end
-
-      def income_kind_partner
-        return if @application.income_kind.nil? || @application.income_kind[:partner].blank?
-        @application.income_kind[:partner].join(', ')
-      end
-
-      def income_period
-        return if @application.income_period.nil?
-        scope = 'activemodel.attributes.views/overview/application'
-        I18n.t("income_period_#{@application.income_period}", scope: scope)
       end
 
       def savings_result
