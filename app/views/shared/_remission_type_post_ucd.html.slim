@@ -1,6 +1,5 @@
 / -binding.pry
 - if source.state == 'waiting_for_evidence'
-
     -if source.evidence_check_outcome.blank?
       #result.callout class="callout-evidence_check"
         h2.govuk-heading-l = t("remissions.callout_html")
@@ -14,9 +13,9 @@
       #result.callout class="callout-full"
         h2.govuk-heading-l = t("remissions.none_html", amount_to_pay: source.amount_to_pay, return_type: source.return_type)
 
-/ - elsif source.state == 'waiting_for_part_payment'
-/   #result.callout class="callout-evidence_check"
-/     h2.govuk-heading-l = t("remissions.callout_html", amount_to_pay: source.amount_to_pay, return_type: source.return_type)
+- elsif source.state == 'waiting_for_part_payment'
+  #result.callout class="callout-part_payment"
+    h2.govuk-heading-l = t("remissions.part_html", amount_to_pay: source.amount_to_pay, return_type: source.return_type)
 
 / - elsif source.state == 'processed'  
 /   #result.callout class="callout-#{source.result}"

@@ -1,2 +1,16 @@
 = render("shared/application_summary", show_links: false)
+= render("shared/result")
+
+= render(partial: 'shared/remission_type_post_ucd', locals: { source: @application_view })
+= render(partial: 'shared/processed_summary', locals: { source: @processing_details })
+
+
+
+
+- content_for(:javascripts)
+  javascript:
+    $(document).ready(function () {
+      moj.Modules.GtmTrackTimestamps.evidence();
+    });
+
 
