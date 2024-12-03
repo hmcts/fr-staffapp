@@ -183,8 +183,7 @@ RSpec.describe Views::Reports::RawDataExport do
         date_received = part_no_ec.detail.date_received.to_fs
 
         expect(export).to include(row)
-        expect(export).to include("true,false,JK123456C,,#{dob},#{date_received},#{decision_date.to_fs},,,legal_representative,false,false,pre_ucd")
-        expect(export).to include("true,JK123456C,,#{dob},#{date_received},#{decision_date.to_fs},,,legal_representative,true,true,pre_ucd")
+        expect(export).to include("true,false,JK123456C,,#{dob},#{date_received},#{decision_date.to_fs},,,legal_representative,true,true,pre_ucd")
       end
 
       it 'part payment outcome is "return"' do

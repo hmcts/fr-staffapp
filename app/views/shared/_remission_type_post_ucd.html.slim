@@ -1,4 +1,3 @@
-/ -binding.pry
 - if source.state == 'waiting_for_evidence'
     -if source.evidence_check_outcome.blank?
       #result.callout class="callout-evidence_check"
@@ -14,23 +13,12 @@
         h2.govuk-heading-l = t("remissions.none_html", amount_to_pay: source.amount_to_pay, return_type: source.return_type)
 
 - elsif source.state == 'waiting_for_part_payment'
-  #result.callout class="callout-part_payment"
-    h2.govuk-heading-l = t("remissions.part_html", amount_to_pay: source.amount_to_pay, return_type: source.return_type)
-
-/ - elsif source.state == 'processed'  
-/   #result.callout class="callout-#{source.result}"
-/     - if source.try(:refund) && source.result != 'none'
-/       h2.govuk-heading-l =t("remissions.part_refund_html", amount_to_pay: "£#{parse_amount_to_pay(source.amount_to_refund)}")
-/     - else
-/       h2.govuk-heading-l =t("remissions.#{source.result}_html", amount_to_pay: source.amount_to_pay, return_type: source.return_type)
-
-
-/   / remissions:
-/   /   full_html: '✓ Eligible for help with fees'
-/   /   part_html: 'The applicant must pay %{amount_to_pay} towards the fee'
-/   /   part_refund_html: 'The amount to be refunded should be %{amount_to_pay}'
-/   /   paid_html: 'The applicant has paid %{amount_to_pay} towards the fee'
-/   /   none_html: '✗ &nbsp; Not eligible for help with fees'
-/   /   callout_html: 'Evidence of income needs to be checked'
-/   /   return_html: '✗ &nbsp; Not eligible because %{return_type} not provided'
-/   /   granted_html: '✓ Granted help with fees'
+  - if source.part_payment_outcome == 'none'
+    #result.callout class="no"
+      h2.govuk-heading-l = t("part_payment.result.no")
+  - elsif source.part_payment_outcome == 'part'
+    #result.callout class="callout yes"
+      h2.govuk-heading-l = t("part_payment.result.yes", amount_to_pay: source.amount_to_pay)
+  - else
+    #result.callout class="callout callout-part"
+      h2.govuk-heading-l = t("remissions.part_html", amount_to_pay: source.amount_to_pay)

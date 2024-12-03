@@ -24,8 +24,11 @@ dl.govuk-summary-list
 
 
 = render("shared/application_summary", show_links: false)
-=build_section 'Result', @application_view, result_section_list
-= render(partial: 'shared/remission_type', locals: { source: @result })
+= render("shared/result")
+
+= render(partial: 'shared/remission_type_post_ucd', locals: { source: @application_view })
+= render(partial: 'shared/processed_summary', locals: { source: @processing_details })
+
 
 
 = form_for @part_payment, url: "summary_save_part_payment".to_sym, method: :post, html: { autocomplete: 'off' } do |f|

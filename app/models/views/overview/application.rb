@@ -25,6 +25,10 @@ module Views
         @application.evidence_check.outcome
       end
 
+      def part_payment_outcome
+        @application.part_payment&.outcome
+      end
+
       def benefits_result
         if type.eql?('benefit')
           return format_locale('passed_by_override') if @application.decision_override.present?
