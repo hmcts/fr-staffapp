@@ -96,7 +96,8 @@ RSpec.describe Applications::Process::SavingsInvestmentsController do
       end
 
       it 'update application it saving fails with result' do
-        expect(application).to have_received(:update).with(outcome: 'none', application_type: 'income', amount_to_pay: 120, income: nil)
+        application_changes = { outcome: 'none', application_type: 'income', amount_to_pay: 120, income: nil, benefits: nil }
+        expect(application).to have_received(:update).with(application_changes)
         expect(application.income).to eq 1000
       end
 
