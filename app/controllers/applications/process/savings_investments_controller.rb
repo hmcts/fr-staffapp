@@ -22,7 +22,7 @@ module Applications
 
       def saving_failed
         band = BandBaseCalculation.new(application)
-
+        band.remission
         application.saving.update(passed: band.saving_passed?)
         return false if band.saving_passed?
         application.update(outcome: band.remission, application_type: 'income', amount_to_pay: application.detail.fee,
