@@ -107,6 +107,7 @@ en-GB:
     ready_to_process: 'Ready to process'
     reasons: 'Reasons'
     income: 'Income'
+    total_income: 'Total income'
     income_from_evidence: 'Income from evidence'
 
   processed_applications:

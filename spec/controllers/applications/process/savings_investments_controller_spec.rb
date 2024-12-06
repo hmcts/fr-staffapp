@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Applications::Process::SavingsInvestmentsController do
   let(:user)          { create(:user) }
-  let(:application) { build_stubbed(:application, office: user.office, detail: detail, saving: saving) }
+  let(:application) { build_stubbed(:application, office: user.office, detail: detail, saving: saving, income: 1000) }
   let(:detail) { build(:detail, calculation_scheme: scheme, fee: 120) }
   let(:saving) { build_stubbed(:saving, amount: 16000) }
   let(:band_saving) { true }
@@ -96,7 +96,8 @@ RSpec.describe Applications::Process::SavingsInvestmentsController do
       end
 
       it 'update application it saving fails with result' do
-        expect(application).to have_received(:update).with(outcome: 'none', application_type: 'income', amount_to_pay: 120)
+        expect(application).to have_received(:update).with(outcome: 'none', application_type: 'income', amount_to_pay: 120, income: nil)
+        expect(application.income).to eq 1000
       end
 
       context 'saving passed' do

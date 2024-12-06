@@ -60,7 +60,7 @@ dl.govuk-summary-list
           = 'Change'
           span.govuk-visually-hidden=t('summary.applicant_over_16')
 
-  - if @applicant.ni_number
+  - if @applicant.ni_number.present?
     .govuk-summary-list__row
       dt.govuk-summary-list__key =t('summary.ni_number')
       dd.govuk-summary-list__value =@applicant.ni_number
@@ -83,14 +83,15 @@ dl.govuk-summary-list
 
 
   - if @applicant.married
-    .govuk-summary-list__row
-      dt.govuk-summary-list__key =t('summary.partner_full_name')
-      dd.govuk-summary-list__value =@applicant.partner_full_name
-      - if show_links
-        dd.govuk-summary-list__actions
-          =link_to application_partner_informations_path(@application) do
-            = 'Change'
-            span.govuk-visually-hidden=t('summary.partner_full_name')
+    - if @applicant&.partner_full_name.present?
+      .govuk-summary-list__row
+        dt.govuk-summary-list__key =t('summary.partner_full_name')
+        dd.govuk-summary-list__value =@applicant.partner_full_name
+        - if show_links
+          dd.govuk-summary-list__actions
+            =link_to application_partner_informations_path(@application) do
+              = 'Change'
+              span.govuk-visually-hidden=t('summary.partner_full_name')
 
 
     - if @applicant.partner_date_of_birth.present?
@@ -234,62 +235,62 @@ dl.govuk-summary-list
             span.govuk-visually-hidden=t('summary.over_66')
 
 
-
-h2.govuk-heading-m Benefits
-dl.govuk-summary-list
-  .govuk-summary-list__row
-    dt.govuk-summary-list__key =t('summary.on_benefits')
-    dd.govuk-summary-list__value =@benefits.on_benefits?
-    - if show_links
-      dd.govuk-summary-list__actions
-        =link_to application_benefits_path(@application) do
-          = 'Change'
-          span.govuk-visually-hidden=t('summary.on_benefits')
-
-  - if @application.benefits
+- if !@application.benefits.nil?
+  h2.govuk-heading-m Benefits
+  dl.govuk-summary-list
     .govuk-summary-list__row
-      dt.govuk-summary-list__key =t('summary.override?')
-      dd.govuk-summary-list__value =@benefits.override?
+      dt.govuk-summary-list__key =t('summary.on_benefits?')
+      dd.govuk-summary-list__value =@benefits.on_benefits?
       - if show_links
         dd.govuk-summary-list__actions
           =link_to application_benefits_path(@application) do
             = 'Change'
-            span.govuk-visually-hidden=t('summary.override?')
+            span.govuk-visually-hidden=t('summary.on_benefits')
 
+    - if @application.benefits
+      .govuk-summary-list__row
+        dt.govuk-summary-list__key =t('summary.override?')
+        dd.govuk-summary-list__value =@benefits.override?
+        - if show_links
+          dd.govuk-summary-list__actions
+            =link_to application_benefits_path(@application) do
+              = 'Change'
+              span.govuk-visually-hidden=t('summary.override?')
 
-h2.govuk-heading-m Children
-dl.govuk-summary-list
-  .govuk-summary-list__row
-    dt.govuk-summary-list__key =t('summary.dependents')
-    dd.govuk-summary-list__value =@children.dependents
-    - if show_links
-      dd.govuk-summary-list__actions
-        =link_to application_dependents_path(@application) do
-          = 'Change'
-          span.govuk-visually-hidden=t('summary.dependents')
-
-  - if @application.children?
+- if @application.children?
+  h2.govuk-heading-m Children
+  dl.govuk-summary-list
     .govuk-summary-list__row
-      dt.govuk-summary-list__key =t('summary.children_age_band')
-      dd.govuk-summary-list__value =@children.children_age_band
+      dt.govuk-summary-list__key =t('summary.dependents')
+      dd.govuk-summary-list__value =@children.dependents
       - if show_links
         dd.govuk-summary-list__actions
           =link_to application_dependents_path(@application) do
             = 'Change'
-            span.govuk-visually-hidden=t('summary.children_age_band')
+            span.govuk-visually-hidden=t('summary.dependents')
+
+    - if @application.children?
+      .govuk-summary-list__row
+        dt.govuk-summary-list__key =t('summary.children_age_band')
+        dd.govuk-summary-list__value =@children.children_age_band
+        - if show_links
+          dd.govuk-summary-list__actions
+            =link_to application_dependents_path(@application) do
+              = 'Change'
+              span.govuk-visually-hidden=t('summary.children_age_band')
 
 
 - if @income.income
   h2.govuk-heading-m Income
   dl.govuk-summary-list
     .govuk-summary-list__row
-      dt.govuk-summary-list__key =t('summary.income')
+      dt.govuk-summary-list__key =t('summary.total_income')
       dd.govuk-summary-list__value =@income.income
       - if show_links
         dd.govuk-summary-list__actions
           =link_to application_incomes_path(@application) do
             = 'Change'
-            span.govuk-visually-hidden=t('summary.income')
+            span.govuk-visually-hidden=t('summary.total_income')
 
     - if @application.evidence_check && @application.evidence_check&.income
       .govuk-summary-list__row
