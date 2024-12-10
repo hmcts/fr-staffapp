@@ -15,12 +15,12 @@ dl.govuk-summary-list
 
   - if @evidence.income
     .govuk-summary-list__row
-      dt.govuk-summary-list__key =t('summary.income')
+      dt.govuk-summary-list__key =t('summary.total_income')
       dd.govuk-summary-list__value =@evidence.income
       dd.govuk-summary-list__actions
         =link_to income_evidence_path(@evidence) do
           = 'Change'
-          span.govuk-visually-hidden=t('summary.income')
+          span.govuk-visually-hidden=t('summary.total_income')
 
   - if !@evidence.correct
     .govuk-summary-list__row
