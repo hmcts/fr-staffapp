@@ -1,16 +1,11 @@
 module SectionViewsHelper
   # rubocop:disable Rails/HelperInstanceVariable
   def build_sections
-    build_from = defined?(application) ? application : online_application
+    @online_application = @application = online_application
+    @online_application_view = Views::Overview::OnlineApplicationView.new(online_application)
 
-    @fee_status = Views::Overview::FeeStatus.new(build_from)
-    @applicant = Views::Overview::Applicant.new(build_from)
-    @online_applicant = Views::Overview::OnlineApplicant.new(build_from)
-    @children = Views::Overview::Children.new(build_from)
-    @application_view = Views::Overview::Application.new(build_from)
-    @details = Views::Overview::Details.new(build_from)
-    @declaration = Views::Overview::Declaration.new(build_from)
-    @representative = Views::Overview::Representative.new(build_representative(build_from))
+    # PRE UCD
+    pre_ucd_presenters
   end
   # rubocop:enable Rails/HelperInstanceVariable
 
@@ -32,4 +27,19 @@ module SectionViewsHelper
       )
     end
   end
+
+  private
+
+  # rubocop:disable Rails/HelperInstanceVariable
+  def pre_ucd_presenters
+    @fee_status = Views::Overview::FeeStatus.new(@online_application)
+    @applicant = Views::Overview::Applicant.new(@online_application)
+    @online_applicant = Views::Overview::OnlineApplicant.new(@online_application)
+    @children = Views::Overview::Children.new(@online_application)
+    @application_view = Views::Overview::Application.new(@online_application)
+    @details = Views::Overview::Details.new(@online_application)
+    @declaration = Views::Overview::Declaration.new(@online_application)
+    @representative = Views::Overview::Representative.new(build_representative(@online_application))
+  end
+  # rubocop:enable Rails/HelperInstanceVariable
 end
