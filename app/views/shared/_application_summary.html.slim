@@ -70,6 +70,16 @@ dl.govuk-summary-list
             = 'Change'
             span.govuk-visually-hidden=t('summary.ni_number')
 
+  - if @applicant.ho_number.present?
+    .govuk-summary-list__row
+      dt.govuk-summary-list__key =t('summary.ho_number')
+      dd.govuk-summary-list__value =@applicant.ho_number
+      - if show_links
+        dd.govuk-summary-list__actions
+          =link_to application_personal_informations_path(@application) do
+            = 'Change'
+            span.govuk-visually-hidden=t('summary.ho_number')
+
 
   .govuk-summary-list__row
     dt.govuk-summary-list__key =t('summary.status')

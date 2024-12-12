@@ -7,7 +7,7 @@ module Views
 
       delegate :married, :form_name, :case_number, :probate, :deceased_name, :emergency_reason,
                :amount, :over_66, :benefits, :children, :legal_representative,
-               :legal_representative_organisation_name, to: :@online_application
+               :legal_representative_organisation_name, :email_address, to: :@online_application
 
       def initialize(online_application)
         @online_application = online_application

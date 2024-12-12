@@ -77,6 +77,8 @@ en-GB:
     date_of_birth: Date of birth
     applicant_over_16: Applicant over 16
     ni_number: National Insurance number
+    ho_number: Home Office reference number
+    email_address: Email address
     status: Status
     partner_full_name: Partner's full name
     partner_date_of_birth: Partner's date of birth
