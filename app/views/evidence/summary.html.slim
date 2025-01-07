@@ -1,1 +1,5 @@
-=render(partial: 'shared/part_payment_evidence/evidence_summary', layout: 'shared/part_payment_evidence/summary', locals: { source: @evidence, type: 'evidence' })
+- if show_ucd_changes?(@details.calculation_scheme)
+  =render('summary_post_ucd', locals: { source: @evidence, type: 'evidence' })
+- else
+  =render(partial: 'shared/part_payment_evidence/evidence_summary', layout: 'shared/part_payment_evidence/summary', locals: { source: @evidence, type: 'evidence' })
+

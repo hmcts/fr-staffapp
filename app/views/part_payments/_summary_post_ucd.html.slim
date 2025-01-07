@@ -1,0 +1,36 @@
+- content_for :page_title
+  = "Check details"
+
+h1.govuk-heading-xl Check details
+
+h2.govuk-heading-m Part-payment
+dl.govuk-summary-list
+  .govuk-summary-list__row
+    dt.govuk-summary-list__key =t('summary.ready_to_process')
+    dd.govuk-summary-list__value =@result.callout
+    dd.govuk-summary-list__actions
+      =link_to accuracy_part_payment_path(@part_payment) do
+        = 'Change'
+        span.govuk-visually-hidden=t('summary.ready_to_process')
+
+  - if @result.reason
+    .govuk-summary-list__row
+      dt.govuk-summary-list__key =t('summary.reasons')
+      dd.govuk-summary-list__value =@result.reason
+      dd.govuk-summary-list__actions
+        =link_to accuracy_part_payment_path(@part_payment) do
+          = 'Change'
+          span.govuk-visually-hidden=t('summary.reasons')
+
+
+= render("shared/application_summary", show_links: false)
+= render("shared/result")
+
+= render(partial: 'shared/remission_type_post_ucd', locals: { source: @application_view })
+= render(partial: 'shared/processed_summary', locals: { source: @processing_details })
+
+
+
+= form_for @part_payment, url: "summary_save_part_payment".to_sym, method: :post, html: { autocomplete: 'off' } do |f|
+  = f.submit 'Complete processing', :class => 'govuk-button primary large'
+

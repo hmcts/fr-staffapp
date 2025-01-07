@@ -1,0 +1,11 @@
+h2.govuk-heading-m Result
+dl.govuk-summary-list
+  .govuk-summary-list__row
+    dt.govuk-summary-list__key =t('processed_applications.result.savings')
+    dd.govuk-summary-list__value =@application_view.savings_result
+  .govuk-summary-list__row
+    dt.govuk-summary-list__key =t('processed_applications.result.income')
+    dd.govuk-summary-list__value =@application_view.income_result
+  .govuk-summary-list__row
+    dt.govuk-summary-list__key =t('processed_applications.result.scheme')
+    dd.govuk-summary-list__value =@application_view.calculation_scheme

@@ -11,6 +11,10 @@ FactoryBot.define do
 
     trait :married do
       married { true }
+      partner_first_name { 'john' }
+      partner_last_name { 'marmite' }
+      partner_ni_number { "AB123#{Random.rand(9)}#{Random.rand(9)}#{Random.rand(9)}D" }
+      partner_date_of_birth { Time.zone.today - 22.years }
     end
 
     trait :ho_number do

@@ -21,13 +21,20 @@ module Applications
       private
 
       def saving_failed
-        band = BandBaseCalculation.new(application)
+        @band = BandBaseCalculation.new(application)
+        @band.remission
+        application.saving.update(passed: @band.saving_passed?)
+        return false if @band.saving_passed?
+        update_application_with_failed_saving
+        true
+      end
 
-        application.saving.update(passed: band.saving_passed?)
-        unless band.saving_passed?
-          application.update(outcome: band.remission, application_type: 'income', amount_to_pay: application.detail.fee)
-        end
-        !band.saving_passed?
+      def update_application_with_failed_saving
+        application.update(
+          outcome: @band.remission, application_type: 'income',
+          amount_to_pay: application.detail.fee,
+          income: nil, benefits: nil
+        )
       end
 
       def next_page_to_go

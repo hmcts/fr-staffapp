@@ -3,6 +3,7 @@ module Views
     class Application
       include OverviewHelper
       include HmrcHelper
+      include IncomeHelper
 
       include ActionView::Helpers::NumberHelper
 
@@ -16,33 +17,24 @@ module Views
         ['benefits', 'dependants', 'number_of_children', 'total_monthly_income', 'savings']
       end
 
+      def state
+        @application.state
+      end
+
+      def evidence_check_outcome
+        @application.evidence_check.outcome
+      end
+
+      def part_payment_outcome
+        @application.part_payment&.outcome
+      end
+
       def benefits_result
         if type.eql?('benefit')
           return format_locale('passed_by_override') if @application.decision_override.present?
           return format_locale('passed_with_evidence') if benefit_override?
           format_locale(benefit_result) if @application.last_benefit_check
         end
-      end
-
-      def income_result
-        return if @application.application_type != "income"
-        format_locale(['full', 'part'].include?(result).to_s)
-      end
-
-      def income_kind_applicant
-        return if @application.income_kind.nil? || @application.income_kind[:applicant].blank?
-        @application.income_kind[:applicant].join(', ')
-      end
-
-      def income_kind_partner
-        return if @application.income_kind.nil? || @application.income_kind[:partner].blank?
-        @application.income_kind[:partner].join(', ')
-      end
-
-      def income_period
-        return if @application.income_period.nil?
-        scope = 'activemodel.attributes.views/overview/application'
-        I18n.t("income_period_#{@application.income_period}", scope: scope)
       end
 
       def savings_result

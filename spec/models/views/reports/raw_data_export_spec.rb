@@ -178,13 +178,12 @@ RSpec.describe Views::Reports::RawDataExport do
         part_no_ec
         export = data.to_csv
         jurisdiction = part_no_ec.detail.jurisdiction.name
-
         row = "#{jurisdiction},135864,300.0,50.0,250.0,income,ABC123,,false,false,2000,,,average,NI number,3,1,2,true,No,part,50.0,250.0,paper"
         dob = part_no_ec.applicant.date_of_birth.to_fs
         date_received = part_no_ec.detail.date_received.to_fs
 
         expect(export).to include(row)
-        expect(export).to include("true,false,JK123456C,,#{dob},#{date_received},#{decision_date.to_fs},,,legal_representative,false,false,pre_ucd")
+        expect(export).to include("true,false,JK123456C,,#{dob},#{date_received},#{decision_date.to_fs},,,legal_representative,true,true,pre_ucd")
       end
 
       it 'part payment outcome is "return"' do

@@ -70,4 +70,10 @@ module DataFieldFormattable
     date_fee_paid&.year
   end
 
+  def format_probate
+    return if probate
+    self.date_of_death = nil
+    self.deceased_name = nil
+  end
+
 end

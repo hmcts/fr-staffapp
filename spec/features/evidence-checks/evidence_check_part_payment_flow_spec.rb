@@ -29,12 +29,13 @@ RSpec.feature 'Part payment application with evidence check for refund' do
 
     click_button 'Complete processing'
 
-    expect(page).to have_content 'Evidence of income needs to be checked'
+    expect(page).to have_content "#{application.reference} - For HMRC income checking"
 
     application = Application.last
 
     expect(evidence_check_rendered?).to be true
 
+    click_button "Next"
     click_link 'Back to start'
     visit evidence_checks_path
 

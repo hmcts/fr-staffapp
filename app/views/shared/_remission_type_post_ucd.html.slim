@@ -1,0 +1,24 @@
+- if source.state == 'waiting_for_evidence'
+    -if source.evidence_check_outcome.blank?
+      #result.callout class="callout-evidence_check"
+        h2.govuk-heading-l = t("remissions.callout_html")
+    - elsif source.evidence_check_outcome == 'part'
+      #result.callout class="callout-#{source.evidence_check_outcome}"
+        h2.govuk-heading-l = t("remissions.#{source.evidence_check_outcome}_html", amount_to_pay: source.amount_to_pay)
+    - elsif source.evidence_check_outcome == 'none'
+      #result.callout class="callout-none"
+        h2.govuk-heading-l = t("remissions.none_html", amount_to_pay: source.amount_to_pay, return_type: source.return_type)
+    - else
+      #result.callout class="callout-full"
+        h2.govuk-heading-l = t("remissions.none_html", amount_to_pay: source.amount_to_pay, return_type: source.return_type)
+
+- elsif source.state == 'waiting_for_part_payment'
+  - if source.part_payment_outcome == 'none'
+    #result.callout class="no"
+      h2.govuk-heading-l = t("part_payment.result.no")
+  - elsif source.part_payment_outcome == 'part'
+    #result.callout class="callout yes"
+      h2.govuk-heading-l = t("part_payment.result.yes", amount_to_pay: source.amount_to_pay)
+  - else
+    #result.callout class="callout callout-part"
+      h2.govuk-heading-l = t("remissions.part_html", amount_to_pay: source.amount_to_pay)

@@ -2,8 +2,7 @@ module Views
   module Overview
     class Applicant
 
-      delegate(:full_name, :partner_full_name, to: :applicant)
-      delegate(:ho_number, to: :applicant)
+      delegate(:full_name, :partner_full_name, :ho_number, :married, to: :applicant)
 
       def initialize(application)
         @application = application

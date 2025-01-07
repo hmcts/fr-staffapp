@@ -35,12 +35,11 @@ class Applicant < ActiveRecord::Base
   private
 
   def remove_partner_info
-    if changes.key?('married') && changes['married'][0] == true && changes['married'][1] == false
-      self.partner_date_of_birth = nil
-      self.partner_first_name = nil
-      self.partner_last_name = nil
-      self.partner_ni_number = nil
-    end
+    return if married == true
+    self.partner_date_of_birth = nil
+    self.partner_first_name = nil
+    self.partner_last_name = nil
+    self.partner_ni_number = nil
   end
 
   def compare_months

@@ -205,11 +205,13 @@ RSpec.describe Forms::Application::Applicant do
       form.save
     end
 
-    let(:applicant) { application.applicant }
-    let(:application) { create(:application, :applicant_full) }
+    let(:application) { create(:application) }
+    let(:applicant) { create(:applicant_with_all_details, :married, application: application, ni_number: 'SN143621C') }
 
     context 'when the attributes are correct' do
       let(:dob) { '01/01/1980' }
+      let(:married) { true }
+
       let(:params) do
         {
           title: 'Mr',
@@ -218,7 +220,7 @@ RSpec.describe Forms::Application::Applicant do
           day_date_of_birth: '01',
           month_date_of_birth: '01',
           year_date_of_birth: '1980',
-          married: true,
+          married: married,
           ni_number: 'AB123456A',
           ho_number: 'L6543210'
         }
@@ -246,6 +248,16 @@ RSpec.describe Forms::Application::Applicant do
 
       it 'saves the correct ho_number' do
         expect(applicant.ho_number).to eq 'L6543210'
+      end
+
+      context 'single' do
+        let(:married) { false }
+        it 'clears partner info' do
+          expect(applicant.partner_first_name).to be_nil
+          expect(applicant.partner_last_name).to be_nil
+          expect(applicant.partner_ni_number).to be_nil
+          expect(applicant.partner_date_of_birth).to be_nil
+        end
       end
     end
 

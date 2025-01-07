@@ -1,6 +1,8 @@
 - content_for :page_title
   = "Check details"
 
+h1.govuk-heading-xl Check details
+
 - if show_ucd_changes?(@details.calculation_scheme)
   = render("post_ucd")
 - else

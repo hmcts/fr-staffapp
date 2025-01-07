@@ -1,0 +1,202 @@
+
+h2.govuk-heading-m Date received and fee status
+dl.govuk-summary-list
+  .govuk-summary-list__row
+    dt.govuk-summary-list__key =t('summary.date_received')
+    dd.govuk-summary-list__value =@online_application_view.date_received
+    dd.govuk-summary-list__actions
+      =link_to edit_online_application_path(@online_application) do
+        = 'Change'
+        span.govuk-visually-hidden=t('summary.date_received')
+
+  .govuk-summary-list__row
+    dt.govuk-summary-list__key =t('summary.refund_request')
+    dd.govuk-summary-list__value =@online_application_view.refund_request
+
+  - if @online_application_view.date_fee_paid
+    .govuk-summary-list__row
+      dt.govuk-summary-list__key =t('summary.date_fee_paid')
+      dd.govuk-summary-list__value =@online_application_view.date_fee_paid
+
+h2.govuk-heading-m Personal details
+dl.govuk-summary-list
+  .govuk-summary-list__row
+    dt.govuk-summary-list__key =t('summary.full_name')
+    dd.govuk-summary-list__value =@online_application_view.full_name
+
+  .govuk-summary-list__row
+    dt.govuk-summary-list__key =t('summary.date_of_birth')
+    dd.govuk-summary-list__value =@online_application_view.date_of_birth
+
+  .govuk-summary-list__row
+    dt.govuk-summary-list__key =t('summary.applicant_over_16')
+    dd.govuk-summary-list__value =@online_application_view.under_age
+
+  - if @online_application_view.ni_number.present?
+    .govuk-summary-list__row
+      dt.govuk-summary-list__key =t('summary.ni_number')
+      dd.govuk-summary-list__value =@online_application_view.ni_number
+  - else
+    .govuk-summary-list__row
+      dt.govuk-summary-list__key =t('summary.ho_number')
+      dd.govuk-summary-list__value =@online_application_view.ho_number
+
+  - if @online_application_view.email_address.present?
+    .govuk-summary-list__row
+      dt.govuk-summary-list__key =t('summary.email_address')
+      dd.govuk-summary-list__value =@online_application_view.email_address
+
+  .govuk-summary-list__row
+    dt.govuk-summary-list__key =t('summary.status')
+    dd.govuk-summary-list__value =@online_application_view.status
+
+  - if @online_application_view.married
+    - if @online_application_view&.partner_full_name.present?
+      .govuk-summary-list__row
+        dt.govuk-summary-list__key =t('summary.partner_full_name')
+        dd.govuk-summary-list__value =@online_application_view.partner_full_name
+
+    - if @online_application_view.partner_date_of_birth.present?
+      .govuk-summary-list__row
+        dt.govuk-summary-list__key =t('summary.partner_date_of_birth')
+        dd.govuk-summary-list__value =@online_application_view.partner_date_of_birth
+
+    - if @online_application_view.partner_ni_number.present?
+      .govuk-summary-list__row
+        dt.govuk-summary-list__key =t('summary.partner_ni_number')
+        dd.govuk-summary-list__value =@online_application_view.partner_ni_number
+
+
+h2.govuk-heading-m Application details
+dl.govuk-summary-list
+  .govuk-summary-list__row
+    dt.govuk-summary-list__key =t('summary.fee')
+    dd.govuk-summary-list__value =@online_application_view.fee
+    dd.govuk-summary-list__actions
+    =link_to edit_online_application_path(@online_application) do
+      = 'Change'
+      span.govuk-visually-hidden=t('summary.fee')
+
+  .govuk-summary-list__row
+    dt.govuk-summary-list__key =t('summary.jurisdiction')
+    dd.govuk-summary-list__value =@online_application_view.jurisdiction
+    dd.govuk-summary-list__actions
+    =link_to edit_online_application_path(@online_application) do
+      = 'Change'
+      span.govuk-visually-hidden=t('summary.jurisdiction')
+
+  .govuk-summary-list__row
+    dt.govuk-summary-list__key =t('summary.form_name')
+    dd.govuk-summary-list__value =@online_application_view.form_name
+    dd.govuk-summary-list__actions
+    =link_to edit_online_application_path(@online_application) do
+      = 'Change'
+      span.govuk-visually-hidden=t('summary.form_name')
+
+  - if @online_application_view.case_number.present?
+    .govuk-summary-list__row
+      dt.govuk-summary-list__key =t('summary.case_number')
+      dd.govuk-summary-list__value =@online_application_view.case_number
+      dd.govuk-summary-list__actions
+      =link_to edit_online_application_path(@online_application) do
+        = 'Change'
+        span.govuk-visually-hidden=t('summary.case_number')
+
+  - if @online_application_view.probate
+    .govuk-summary-list__row
+      dt.govuk-summary-list__key =t('summary.deceased_name')
+      dd.govuk-summary-list__value =@online_application_view.deceased_name
+
+    .govuk-summary-list__row
+      dt.govuk-summary-list__key =t('summary.date_of_death')
+      dd.govuk-summary-list__value =@online_application_view.date_of_death
+
+  - if @online_application_view.emergency_reason
+    .govuk-summary-list__row
+      dt.govuk-summary-list__key =t('summary.emergency')
+      dd.govuk-summary-list__value =@online_application_view.emergency_reason
+      dd.govuk-summary-list__actions
+      =link_to edit_online_application_path(@online_application) do
+        = 'Change'
+        span.govuk-visually-hidden=t('summary.emergency')
+
+
+h2.govuk-heading-m Savings and investments
+dl.govuk-summary-list
+  .govuk-summary-list__row
+    dt.govuk-summary-list__key =t('summary.less_then')
+    dd.govuk-summary-list__value =@online_application_view.less_then
+
+  .govuk-summary-list__row
+    dt.govuk-summary-list__key =t('summary.between')
+    dd.govuk-summary-list__value =@online_application_view.between
+
+  .govuk-summary-list__row
+    dt.govuk-summary-list__key =t('summary.more_then')
+    dd.govuk-summary-list__value =@online_application_view.more_then
+
+  - if @online_application_view.amount
+    .govuk-summary-list__row
+      dt.govuk-summary-list__key =t('summary.amount_total')
+      dd.govuk-summary-list__value =@online_application_view.saving_amount_total
+
+  - if @online_application_view.over_66
+    .govuk-summary-list__row
+      dt.govuk-summary-list__key =t('summary.over_66')
+      dd.govuk-summary-list__value =@online_application_view.saving_over_66
+
+- if !@online_application_view.benefits.nil?
+  h2.govuk-heading-m Benefits
+  dl.govuk-summary-list
+    .govuk-summary-list__row
+      dt.govuk-summary-list__key =t('summary.on_benefits?')
+      dd.govuk-summary-list__value =@online_application_view.on_benefits?
+
+- if @online_application_view.children
+  h2.govuk-heading-m Children
+  dl.govuk-summary-list
+    .govuk-summary-list__row
+      dt.govuk-summary-list__key =t('summary.dependents')
+      dd.govuk-summary-list__value =@online_application_view.children?
+
+    - if @online_application_view.children
+      .govuk-summary-list__row
+        dt.govuk-summary-list__key =t('summary.children_age_band')
+        dd.govuk-summary-list__value =@online_application_view.children_age_band
+
+- if @online_application_view.income
+  h2.govuk-heading-m Income
+  dl.govuk-summary-list
+    .govuk-summary-list__row
+      dt.govuk-summary-list__key =t('summary.total_income')
+      dd.govuk-summary-list__value =@online_application_view.income
+
+    .govuk-summary-list__row
+      dt.govuk-summary-list__key =t('summary.income_period')
+      dd.govuk-summary-list__value =@online_application_view.income_period(@online_application)
+
+    .govuk-summary-list__row
+      dt.govuk-summary-list__key =t('summary.income_kind_applicant')
+      dd.govuk-summary-list__value =@online_application_view.income_kind_applicant
+
+    - if @online_application_view.married
+      .govuk-summary-list__row
+        dt.govuk-summary-list__key =t('summary.income_kind_partner')
+        dd.govuk-summary-list__value =@online_application_view.income_kind_partner
+
+h2.govuk-heading-m Declaration and statement of truth
+dl.govuk-summary-list
+  .govuk-summary-list__row
+    dt.govuk-summary-list__key =t('summary.statement_signed_by')
+    dd.govuk-summary-list__value =@online_application_view.statement_signed_by
+
+- if @online_application_view.legal_representative
+  h2.govuk-heading-m Representative details
+  dl.govuk-summary-list
+    .govuk-summary-list__row
+      dt.govuk-summary-list__key =t('summary.representative.full_name')
+      dd.govuk-summary-list__value =@online_application_view.representative_full_name
+
+    .govuk-summary-list__row
+      dt.govuk-summary-list__key =t('summary.representative.organisation')
+      dd.govuk-summary-list__value =@online_application_view.legal_representative_organisation_name

@@ -9,13 +9,13 @@ class EvidenceController < ApplicationController
   before_action :store_path, except: [:accuracy_save, :income_save, :confirmation]
   before_action :clear_path, only: :confirmation
 
-  include SectionViewsHelper
+  include ProcessedViewsHelper
 
   def show
     authorize evidence
 
     processing_details
-    build_sections
+    assign_views
   end
 
   def accuracy
@@ -54,7 +54,7 @@ class EvidenceController < ApplicationController
 
   def summary
     evidence_view
-    build_sections
+    assign_views
     application_result
   end
 
@@ -69,7 +69,7 @@ class EvidenceController < ApplicationController
   end
 
   def return_letter
-    build_sections
+    assign_views
   end
 
   def return_application

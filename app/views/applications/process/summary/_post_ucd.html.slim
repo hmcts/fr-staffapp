@@ -1,47 +1,4 @@
-
-h1.govuk-heading-xl Check details
-- change_applicant_link = { url: application_personal_informations_path(@application) }
-- change_partner_link = { url: application_partner_informations_path(@application) }
-- change_income_link = { url: application_incomes_path(@application) }
-- change_income_kind_applicant_link = { url: application_income_kind_applicants_path(@application) }
-- change_income_kind_partner_link = { url: application_income_kind_partners_path(@application) }
-
-
-=build_section_with_defaults 'Date received and fee status', @fee_status, application_fee_status_path(@application)
-=build_section_with_custom_links 'Personal details', @applicant,
-[ { key:'full_name', link_attributes: change_applicant_link },
-  { key:'date_of_birth', link_attributes: change_applicant_link },
-  { key:'under_age', link_attributes: change_applicant_link },
-  { key:'ni_number', link_attributes: change_applicant_link },
-  { key:'ho_number', link_attributes: change_applicant_link },
-  { key:'status', link_attributes: change_applicant_link },
-  { key:'partner_full_name', link_attributes: change_partner_link },
-  { key:'partner_date_of_birth', link_attributes: change_partner_link },
-  { key:'partner_ni_number', link_attributes: change_partner_link },
-  ]
-
-
-=build_section_with_defaults 'Application details', @details, application_details_path(@application)
-
-- if display_savings?(@application)
-  =build_section_with_defaults 'Savings and investments', @savings, application_savings_investments_path(@application)
-
--if @application.saving.passed?
-  =build_section_with_defaults 'Benefits', @benefits, application_benefits_path(@application)
-
--if @application.saving.passed? && !@application.benefits?
-  =build_section_with_defaults 'Children', @children, application_dependents_path(@application)
-  =build_section_with_custom_links 'Income', @income, [ { key:'income_new', link_attributes: change_income_link },
-    { key:'income_period', link_attributes: change_income_link },
-    { key:'income_kind_applicant', link_attributes: change_income_kind_applicant_link },
-    { key:'income_kind_partner', link_attributes: change_income_kind_partner_link } ]
-
-
-=build_section_with_defaults 'Declaration and statement of truth', @declaration, application_declaration_path(@application)
-
-- if @representative.display_section?
-  =build_section_with_defaults 'Representative details', @representative, application_representative_path(@application)
-
+= render("shared/application_summary", show_links: true)
 
 = form_for @application, url: application_summary_path(@application), method: :post do |f|
   = f.submit 'Complete processing', class: 'govuk-button govuk-!-margin-top-1'

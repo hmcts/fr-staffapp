@@ -1,0 +1,11 @@
+h1.govuk-heading-xl
+  =@application.reference
+  |&nbsp;-&nbsp;
+  =t("#{state}_applications.detail.title")
+
+= render("shared/application_summary", show_links: false)
+= render("shared/result")
+
+
+=render(partial: 'shared/remission_type', locals: { source: @result })
+=render(partial: 'shared/processed_summary', locals: { source: @processing_details })
