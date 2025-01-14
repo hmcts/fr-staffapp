@@ -1,4 +1,4 @@
-FROM ruby:3.3.6-alpine3.20
+FROM ruby:3.4.1-alpine3.20
 
 # Adding argument support for ping.json
 ARG APPVERSION=unknown
