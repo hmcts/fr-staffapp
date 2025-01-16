@@ -23,7 +23,7 @@ describe HmrcApiService do
   }
   let(:married) { false }
   let(:hmrc_api) { instance_double(HwfHmrcApi::Connection) }
-  let(:hmrc_api_authentication) { instance_double(HwfHmrcApi::Authentication, access_token: 1, expires_in: 1) }
+  let(:hmrc_api_authentication) { instance_double(HwfHmrcApi::Authentication, access_token: 1, expires_in: 1.second.from_now) }
   let(:hmrc_call) { instance_double(HmrcCall, id: correlation_id) }
   let(:correlation_id) { '692f8ec9-0bd3-4f5d-ac54-3e21c94abec6' }
 

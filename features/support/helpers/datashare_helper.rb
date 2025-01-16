@@ -5,7 +5,7 @@ def stub_hmrc_api
   allow(hmrc_api).to receive(:match_user)
   allow(hmrc_api).to receive(:child_tax_credits).and_return([])
   allow(hmrc_api).to receive(:working_tax_credits).and_return([])
-  authentication = instance_double(HwfHmrcApi::Authentication, access_token: 1, expires_in: 1)
+  authentication = instance_double(HwfHmrcApi::Authentication, access_token: 1, expires_in: 1.second.from_now)
   allow(hmrc_api).to receive(:authentication).and_return(authentication)
   hmrc_api
 end
